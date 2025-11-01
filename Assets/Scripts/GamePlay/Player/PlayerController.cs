@@ -1,5 +1,4 @@
 using UnityEngine;
-[RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Movement movement;
@@ -8,25 +7,24 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         InitComponents();
-        SetUpValues();
     }
     private void InitComponents()
     {
 
         inputHandler = new InputHandler();
     }
-    private void SetUpValues()
+    void Start()
     {
-        movement.SetUp();
+        movement.Start();
     }
     void Update()
     {
         movement.Update(inputHandler.MoveValue, inputHandler.IsJumping);
     }
-
-    private void OnCollisionEnter2D(Collision2D collision)
+    void OnDrawGizmos()
     {
-        movement.UpdateGroundState(collision);
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position, Vector3.down * 100f);
     }
 
 

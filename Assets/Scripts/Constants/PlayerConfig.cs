@@ -2,10 +2,8 @@ using UnityEngine;
 
 public class PlayerConfig
 {
-    public const float MoveSpeed = 5f;
+    public const float FRICTION = 100f;
+    public const float MOVE_SPEED = 10f;
+    public const float JUMP_HEIGHT = 5;
 
-
-    public const float JumpHeight = 5f;
-    public const float Gravity = 9.81f;
-    public const float GravityBoostMultiplier = 5f;
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Movement movement;
@@ -10,16 +11,15 @@ public class PlayerController : MonoBehaviour
     }
     private void InitComponents()
     {
-
         inputHandler = new InputHandler();
     }
     void Start()
     {
-        movement.Start();
+        movement.Init(inputHandler);
     }
     void Update()
     {
-        movement.Update(inputHandler.MoveValue, inputHandler.IsJumping);
+        movement.Update();
     }
     void OnDrawGizmos()
     {

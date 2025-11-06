@@ -62,7 +62,7 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        if (Physics2D.Raycast(transform.position, Vector2.down, 0.75f, groundLayer))
+        if (Physics2D.Raycast(transform.position, Vector2.down, 1.5f, groundLayer))
         {
             SetGroundedState(true);
             if (velocity.y <= 0)

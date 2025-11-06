@@ -4,7 +4,7 @@ public class PlayerController : MonoBehaviour
 {
     [SerializeField] private Movement movement;
     private InputHandler inputHandler;
-
+    private Inventory inventory;
     void Awake()
     {
         InitComponents();
@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private void InitComponents()
     {
         inputHandler = new InputHandler();
+        inventory = new Inventory();
     }
     void Start()
     {

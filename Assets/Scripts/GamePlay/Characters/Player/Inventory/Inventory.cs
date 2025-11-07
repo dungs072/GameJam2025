@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public struct ItemData
+public class ItemData
 {
-    public string name;
+    public int id;
     public int amount;
     // add more for item properties
 }
@@ -14,8 +14,8 @@ public struct ItemData
 [Serializable]
 public class Inventory
 {
-    public IReadOnlyDictionary<string, ItemData> Items => items;
-    private Dictionary<string, ItemData> items = new();
+    public IReadOnlyDictionary<int, ItemData> Items => items;
+    private Dictionary<int, ItemData> items = new();
     private int maxSize = 100;
 
     public Inventory(int maxSize = 100)
@@ -24,7 +24,7 @@ public class Inventory
     }
 
 
-    public bool AddItem(string itemName, ref int amount)
+    public bool AddItem(int itemId, ref int amount)
     {
         int totalItem = GetTotalItems();
         if (totalItem >= maxSize)
@@ -39,38 +39,38 @@ public class Inventory
             totalAmountToAdd = spaceLeft;
             amount -= spaceLeft;
         }
-        if (items.ContainsKey(itemName))
+        if (items.ContainsKey(itemId))
         {
-            ItemData existingItem = items[itemName];
+            ItemData existingItem = items[itemId];
 
             existingItem.amount += totalAmountToAdd;
-            items[itemName] = existingItem;
+            items[itemId] = existingItem;
         }
         else
         {
-            ItemData newItem = new() { name = itemName, amount = totalAmountToAdd };
-            items.Add(itemName, newItem);
+            ItemData newItem = new() { id = itemId, amount = totalAmountToAdd };
+            items.Add(itemId, newItem);
         }
 
         return true;
     }
 
-    public bool RemoveItem(string itemName, int amount)
+    public bool RemoveItem(int itemId, int amount)
     {
 
-        if (items.ContainsKey(itemName))
+        if (items.ContainsKey(itemId))
         {
-            ItemData existingItem = items[itemName];
+            ItemData existingItem = items[itemId];
             if (existingItem.amount >= amount)
             {
                 existingItem.amount -= amount;
                 if (existingItem.amount == 0)
                 {
-                    items.Remove(itemName);
+                    items.Remove(itemId);
                 }
                 else
                 {
-                    items[itemName] = existingItem;
+                    items[itemId] = existingItem;
                 }
                 return true;
             }

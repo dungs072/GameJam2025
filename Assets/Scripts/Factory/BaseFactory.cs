@@ -2,66 +2,77 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseProduct : MonoBehaviour
-{
-    public virtual string ProductName { get; }
-}
 
 public class BaseFactory : MonoBehaviour
 {
-    protected Dictionary<string, BaseProduct> productDictionary = new Dictionary<string, BaseProduct>();
-
-    protected Dictionary<string, List<BaseProduct>> productListDictionary = new Dictionary<string, List<BaseProduct>>();
-
-    public virtual void RegisterProduct(string productName, BaseProduct product)
+    [SerializeField] private List<GameObject> products;
+    [SerializeField] private int startId = 8;
+    private Dictionary<int, GameObject> productRecord = new();
+    private Dictionary<int, List<GameObject>> productCache = new();
+    private void Awake()
     {
-        if (!productDictionary.ContainsKey(productName))
+        InitializeProductDictionary();
+    }
+
+    private void InitializeProductDictionary()
+    {
+        productRecord = new Dictionary<int, GameObject>();
+        for (int i = 0; i < products.Count; i++)
         {
-            productDictionary.Add(productName, product);
+            productRecord.Add(i, products[i]);
+        }
+    }
+
+    public void RegisterProduct(GameObject product)
+    {
+        int id = productRecord.Count;
+        if (!productRecord.ContainsKey(id))
+        {
+            productRecord.Add(id, product);
         }
         else
         {
-            Debug.LogWarning($"Product {productName} is already registered.");
+            Debug.LogWarning($"Product with Name {product.name} is already registered.");
         }
     }
-    public virtual BaseProduct CreateProduct(string productName)
+    public GameObject GetProduct(int productId)
     {
-        if (productDictionary.TryGetValue(productName, out BaseProduct prefab))
+        if (!IsValidProductId(productId))
         {
-            BaseProduct product = Instantiate(prefab);
-            product.name = productName;
-            if (productListDictionary.ContainsKey(productName))
+            Debug.LogError($"Product with ID {productId} does not exist.");
+            return null;
+        }
+        var list = productCache.GetValueOrDefault(productId, new List<GameObject>());
+        GameObject selectedProduct;
+        if (list.Count == 0)
+        {
+            selectedProduct = CreateNewProduct(productId);
+        }
+        else
+        {
+            var unusedProduct = list.Find(p => !p.activeInHierarchy);
+            if (unusedProduct == null)
             {
-                productListDictionary[productName].Add(product);
+                selectedProduct = CreateNewProduct(productId);
             }
             else
             {
-                productListDictionary[productName] = new List<BaseProduct> { product };
+                selectedProduct = unusedProduct;
             }
-            return product;
         }
-        else
-        {
-            Debug.LogWarning($"Product {productName} is not registered.");
-            return null;
-        }
+        selectedProduct.SetActive(true);
+        return selectedProduct;
     }
-
-    public virtual BaseProduct GetFreeProduct(string productName)
+    private bool IsValidProductId(int productId)
     {
-        if (productListDictionary.TryGetValue(productName, out List<BaseProduct> productList) && productList.Count > 0)
-        {
-            foreach (var product in productList)
-            {
-                if (!product.isActiveAndEnabled)
-                {
-                    product.gameObject.SetActive(true);
-                    return product;
-                }
-            }
-        }
-
-        var newProduct = CreateProduct(productName);
+        return productRecord.ContainsKey(productId);
+    }
+    private GameObject CreateNewProduct(int productId)
+    {
+        GameObject newProduct = Instantiate(productRecord[productId]);
+        var list = productCache.GetValueOrDefault(productId, new List<GameObject>());
+        list.Add(newProduct);
+        productCache[productId] = list;
         return newProduct;
     }
 }

@@ -5,6 +5,9 @@ public class GameController : MonoBehaviour
 {
     [field: SerializeField] public BaseFactory Factory { get; private set; }
     [field: SerializeField] public GameLoader Loader { get; private set; }
+
+    [Header("Data")]
+    [field: SerializeField] public ColorRuler ColorRuler { get; private set; }
     public static event Action<bool> OnInputStateChanged;
 
     public static GameController Instance { get; private set; }

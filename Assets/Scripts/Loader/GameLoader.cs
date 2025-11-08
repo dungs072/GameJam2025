@@ -22,18 +22,15 @@ public class GameLoader
                 continue;
             }
 
-            prefabRef.InstantiateAsync().Completed += handle =>
+            prefabRef.LoadAssetAsync<GameObject>().Completed += handle =>
             {
                 if (handle.Status == AsyncOperationStatus.Succeeded)
                 {
-                    loadedObjects.Add(handle.Result);
-                    Debug.Log($"Loaded prefab: {handle.Result.name}");
-                }
-                else
-                {
-                    Debug.LogError($"Failed to load prefab {prefabRef.RuntimeKey}");
+                    var prefab = handle.Result; // This is the prefab asset, NOT an instance
+                    Debug.Log($"Loaded prefab asset: {prefab.name}");
                 }
             };
+
         }
     }
 

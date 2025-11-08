@@ -3,29 +3,31 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class ItemData
-{
-    public int id;
-    public int amount;
-    // add more for item properties
-}
-// Each Item has same amount of space in inventory
 
 [Serializable]
 public class Inventory
 {
-    public IReadOnlyDictionary<int, ItemData> Items => items;
-    private Dictionary<int, ItemData> items = new();
+    public IReadOnlyDictionary<string, int> Items => items;
+    private Dictionary<string, int> items = new();
     private int maxSize = 100;
 
     public Inventory(int maxSize = 100)
     {
         this.maxSize = maxSize;
     }
-
-
-    public bool AddItem(int itemId, ref int amount)
+    public int GetItemCount(string productId)
     {
+        Debug.Log($"<color=#df6325>productId: {productId}</color>");
+        if (items.ContainsKey(productId))
+        {
+            return items[productId];
+        }
+        return 0;
+    }
+
+    public bool AddItem(string productId, ref int amount)
+    {
+        Debug.Log($"<color=#ccd7ac>productId: {productId}</color>");
         int totalItem = GetTotalItems();
         if (totalItem >= maxSize)
         {
@@ -39,51 +41,70 @@ public class Inventory
             totalAmountToAdd = spaceLeft;
             amount -= spaceLeft;
         }
-        if (items.ContainsKey(itemId))
+        else
         {
-            ItemData existingItem = items[itemId];
+            amount = 0;
+        }
+        if (items.ContainsKey(productId))
+        {
+            var quantity = items[productId];
 
-            existingItem.amount += totalAmountToAdd;
-            items[itemId] = existingItem;
+            quantity += totalAmountToAdd;
+            items[productId] = quantity;
         }
         else
         {
-            ItemData newItem = new() { id = itemId, amount = totalAmountToAdd };
-            items.Add(itemId, newItem);
+            items.Add(productId, totalAmountToAdd);
         }
 
         return true;
     }
 
-    public bool RemoveItem(int itemId, int amount)
+    public bool RemoveItem(string productId, int amount)
     {
 
-        if (items.ContainsKey(itemId))
+        if (items.ContainsKey(productId))
         {
-            ItemData existingItem = items[itemId];
-            if (existingItem.amount >= amount)
+            var quantity = items[productId];
+            if (quantity >= amount)
             {
-                existingItem.amount -= amount;
-                if (existingItem.amount == 0)
+                quantity -= amount;
+                if (quantity == 0)
                 {
-                    items.Remove(itemId);
+                    items.Remove(productId);
                 }
                 else
                 {
-                    items[itemId] = existingItem;
+                    items[productId] = quantity;
                 }
                 return true;
             }
         }
         return false;
     }
+    public void RemoveUnmatchedLeftItems(string productId)
+    {
+
+        foreach (var item in items)
+        {
+            if (item.Key != productId)
+            {
+                items.Remove(item.Key);
+                break;
+            }
+        }
+    }
+    public bool IsFull()
+    {
+        return GetTotalItems() >= maxSize;
+    }
 
     private int GetTotalItems()
     {
         int total = 0;
-        foreach (var item in items.Values)
+        foreach (var quantity in items.Values)
         {
-            total += item.amount;
+            total += quantity;
         }
         return total;
     }

@@ -23,6 +23,12 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        Initialize();
+    }
+    private void Initialize()
+    {
+        Loader.LoadAllPrefabs();
     }
 
     public void EnableInput()

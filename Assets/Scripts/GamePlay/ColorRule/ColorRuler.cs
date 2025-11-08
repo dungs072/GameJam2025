@@ -5,10 +5,8 @@ using UnityEngine;
 [Serializable]
 public struct ColorData
 {
-    public int[] parents;
-
-    public string name;
-    public int id;
+    public ColorEnum[] parents;
+    public ColorEnum color;
 }
 
 

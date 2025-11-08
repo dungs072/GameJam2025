@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class BaseFactory : MonoBehaviour
 {
+    [SerializeField] private Transform productsParent;
     [SerializeField] private List<GameObject> products;
     private Dictionary<string, GameObject> productRecord = new();
     private Dictionary<string, List<GameObject>> productCache = new();
@@ -67,7 +68,7 @@ public class BaseFactory : MonoBehaviour
     }
     private GameObject CreateNewProduct(string productId)
     {
-        GameObject newProduct = Instantiate(productRecord[productId]);
+        GameObject newProduct = Instantiate(productRecord[productId], productsParent);
         var list = productCache.GetValueOrDefault(productId, new List<GameObject>());
         list.Add(newProduct);
         productCache[productId] = list;

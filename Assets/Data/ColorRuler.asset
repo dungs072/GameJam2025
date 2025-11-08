@@ -14,23 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colors:
   - parents: 
-    name: red
-    id: 0
+    color: 0
   - parents: 
-    name: green
-    id: 1
+    color: 1
   - parents: 
-    name: blue
-    id: 2
+    color: 2
   - parents: 0000000001000000
-    name: yellow
-    id: 3
+    color: 3
   - parents: 0000000002000000
-    name: purple
-    id: 4
+    color: 5
   - parents: 0100000002000000
-    name: purple
-    id: 5
+    color: 4
   - parents: 000000000100000002000000030000000400000005000000
-    name: purple
-    id: 4
+    color: 6

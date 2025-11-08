@@ -1,13 +1,12 @@
 using System;
+using System.Collections.ObjectModel;
 using UnityEngine;
 
 [Serializable]
 public struct ColorData
 {
-    public int[] parents;
-
-    public string name;
-    public int id;
+    public ColorEnum[] parents;
+    public ColorEnum color;
 }
 
 
@@ -15,5 +14,6 @@ public struct ColorData
 public class ColorRuler : ScriptableObject
 {
     [SerializeField] private ColorData[] colors;
-    public int ColorCount => colors?.Length ?? 0;
+
+    public ReadOnlyCollection<ColorData> Colors => Array.AsReadOnly(colors);
 }

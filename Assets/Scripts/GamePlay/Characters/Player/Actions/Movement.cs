@@ -2,7 +2,12 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-
+public enum BlockState
+{
+    None,
+    Left,
+    Right
+}
 
 [Serializable]
 public class Movement
@@ -17,10 +22,17 @@ public class Movement
 
     private float dashTimer = 0f;
     private Vector2 dashDir;
+    private BlockState blockState = BlockState.None;
+
 
 
     //! use for optimization gravity check
     private Vector3 prePosition = Vector3.zero;
+
+    public void SetBlockState(BlockState state)
+    {
+        blockState = state;
+    }
 
     public void Init(InputHandler inputHandler)
     {
@@ -101,10 +113,22 @@ public class Movement
     }
     private void UpdateTransformBaseVelocity()
     {
+        Vector3 newPosition = transform.position;
+
+
+        if (blockState == BlockState.Left && velocity.x < 0)
+        {
+            velocity.x = 0;
+        }
+        else if (blockState == BlockState.Right && velocity.x > 0)
+        {
+            velocity.x = 0;
+        }
+
         if (isDashing)
         {
             dashTimer += Time.deltaTime;
-            transform.position += velocity * Time.deltaTime;
+            newPosition = transform.position + velocity * Time.deltaTime;
             velocity.x = Mathf.Lerp(velocity.x, 0, Time.deltaTime /
                         PlayerConfig.MovementSettings.DASH_DURATION);
             if (dashTimer >= PlayerConfig.MovementSettings.DASH_DURATION)
@@ -115,7 +139,7 @@ public class Movement
         }
         else
         {
-            transform.position += velocity * Time.deltaTime;
+            newPosition += velocity * Time.deltaTime;
             velocity.x = Mathf.Lerp(velocity.x, 0, PlayerConfig.MovementSettings.FRICTION * Time.deltaTime);
             if (Mathf.Abs(velocity.x) < Mathf.Epsilon)
             {
@@ -123,6 +147,8 @@ public class Movement
             }
 
         }
+
+        transform.position = newPosition;
     }
 
 

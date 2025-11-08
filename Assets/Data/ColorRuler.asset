@@ -12,3 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6dc9d561c10ef87418dfa8253f470ce1, type: 3}
   m_Name: ColorRuler
   m_EditorClassIdentifier: 
+  colors:
+  - parents: 
+    color: 0
+  - parents: 
+    color: 1
+  - parents: 
+    color: 2
+  - parents: 0000000001000000
+    color: 3
+  - parents: 0000000002000000
+    color: 5
+  - parents: 0100000002000000
+    color: 4
+  - parents: 000000000100000002000000030000000400000005000000
+    color: 6

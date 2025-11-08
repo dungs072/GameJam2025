@@ -13,12 +13,22 @@ public class InventoryUI : MonoBehaviour
         Debug.Log($"<color=#b720d5>amount: {amount}</color>");
         foreach (var block in inventoryBlocks)
         {
-            if (block.IsEmpty())
+            if (block.HasProductId(productId))
             {
-                block.SetData(productId, icon, amount);
-                return;
+                if (amount == 0)
+                {
+                    block.SetData("", null, 0);
+                }
+                else
+                {
+                    block.SetData(productId, icon, amount);
+                    return;
+                }
             }
-            else if (block.HasProductId(productId))
+        }
+        foreach (var block in inventoryBlocks)
+        {
+            if (block.IsEmpty())
             {
                 block.SetData(productId, icon, amount);
                 return;

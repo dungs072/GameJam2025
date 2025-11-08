@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ICharacter
@@ -8,6 +10,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     void Awake()
     {
         InitComponents();
+        inventory.OnItemRemoved += HandleItemRemoved;
     }
     private void InitComponents()
     {
@@ -17,6 +20,16 @@ public class PlayerController : MonoBehaviour, ICharacter
     void Start()
     {
         movement.Init(inputHandler);
+    }
+    void OnDestroy()
+    {
+        inventory.OnItemRemoved -= HandleItemRemoved;
+    }
+    private void HandleItemRemoved(string itemID, int amount)
+    {
+        var factory = GameController.Instance.Factory;
+        var item = factory.GetProduct(itemID);
+        item.transform.position = transform.position + Vector3.up * 5f;
     }
     void Update()
     {
@@ -33,9 +46,17 @@ public class PlayerController : MonoBehaviour, ICharacter
         return inventory.GetItemCount(itemID);
     }
 
-    public void RemoveUnmatchedLeftItems(string itemID)
+    public void RemoveUnmatchedLeftColorItems(ColorEnum color)
     {
-        inventory.RemoveUnmatchedLeftItems(itemID);
+        var colorRuler = GameController.Instance.ColorRuler;
+        var parentColors = colorRuler.GetParentColors(color);
+        var colorIds = new List<string> { ColorEnumExtensions.ToID(color) };
+        foreach (var parentColor in parentColors)
+        {
+            colorIds.Add(ColorEnumExtensions.ToID(parentColor));
+        }
+        Debug.Log($"<color=#e468d9>colorIds: {colorIds.Count}</color>");
+        inventory.RemoveUnMatchedLeftItems(colorIds);
     }
 
     void OnTriggerEnter2D(Collider2D collision)

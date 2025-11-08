@@ -8,6 +8,8 @@ using UnityEngine.ResourceManagement.AsyncOperations;
 [Serializable]
 public class GameLoader
 {
+
+    public static event Action<string, Prop> OnPrefabLoaded;
     [Header("Assign multiple Addressable prefab references here")]
     [SerializeField] private List<AssetReferenceGameObject> prefabReferences;
     private readonly List<Prop> loadedObjects = new();
@@ -33,6 +35,7 @@ public class GameLoader
                     {
                         loadedObjects.Add(propComponent);
                         loadedObjectsDict[propComponent.productData.Id] = propComponent;
+                        OnPrefabLoaded?.Invoke(propComponent.productData.Id, propComponent);
                     }
                 }
 

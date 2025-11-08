@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -8,6 +9,7 @@ using UnityEngine;
 public class Inventory
 {
     public static event Action<string, int> OnInventoryChanged;
+    public event Action<string, int> OnItemRemoved;
     public IReadOnlyDictionary<string, int> Items => items;
     private Dictionary<string, int> items = new();
     private int maxSize = 100;
@@ -27,7 +29,6 @@ public class Inventory
 
     public bool AddItem(string productId, ref int amount)
     {
-        Debug.Log($"<color=#ccd7ac>productId: {productId}</color>");
         int totalItem = GetTotalItems();
         if (totalItem >= maxSize)
         {
@@ -64,6 +65,7 @@ public class Inventory
 
     public bool RemoveItem(string productId, int amount)
     {
+        Debug.Log($"<color=#b4046a>productId: {productId}, {amount}</color>");
 
         if (items.ContainsKey(productId))
         {
@@ -80,6 +82,7 @@ public class Inventory
                     items[productId] = quantity;
                 }
                 NotifyInventoryChanged(productId);
+                OnItemRemoved?.Invoke(productId, amount);
                 return true;
             }
         }
@@ -88,14 +91,22 @@ public class Inventory
     public void RemoveUnmatchedLeftItems(string productId)
     {
 
-        foreach (var item in items)
+        foreach (var key in items.Keys.Where(k => k != productId).ToList())
         {
-            if (item.Key != productId)
-            {
-                items.Remove(item.Key);
-                NotifyInventoryChanged(item.Key);
-                break;
-            }
+            var value = items[key];
+            items.Remove(key);
+            NotifyInventoryChanged(key);
+            OnItemRemoved?.Invoke(key, value);
+        }
+    }
+    public void RemoveUnMatchedLeftItems(List<string> productIds)
+    {
+        foreach (var key in items.Keys.Where(k => !productIds.Contains(k)).ToList())
+        {
+            var value = items[key];
+            items.Remove(key);
+            NotifyInventoryChanged(key);
+            OnItemRemoved?.Invoke(key, value);
         }
     }
     public bool IsFull()

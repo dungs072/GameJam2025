@@ -9,7 +9,7 @@ public class Passable : MonoBehaviour, IPropComponent
         if (!CanGoThrough(character)) return false;
         foreach (var colorStack in ownColors)
         {
-            character.RemoveUnmatchedLeftItems(ColorEnumExtensions.ToID(colorStack.color));
+            character.RemoveUnmatchedLeftColorItems(colorStack.color);
         }
         return true;
     }
@@ -17,7 +17,15 @@ public class Passable : MonoBehaviour, IPropComponent
     {
         foreach (var colorStack in ownColors)
         {
-            int countInInventory = character.GetCountItemInventory(ColorEnumExtensions.ToID(colorStack.color));
+            var colorId = ColorEnumExtensions.ToID(colorStack.color);
+            int countInInventory = character.GetCountItemInventory(colorId);
+            var colorRuler = GameController.Instance.ColorRuler;
+            var parentColors = colorRuler.GetParentColors(colorStack.color);
+            foreach (var parentColor in parentColors)
+            {
+                var parentColorId = ColorEnumExtensions.ToID(parentColor);
+                countInInventory += character.GetCountItemInventory(parentColorId);
+            }
             if (countInInventory == 0) return false;
         }
         return true;

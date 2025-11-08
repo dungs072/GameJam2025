@@ -3,7 +3,7 @@ using UnityEngine;
 public interface ICharacter
 {
     int GetCountItemInventory(string itemID);
-    void RemoveUnmatchedLeftItems(string itemID);
+    void RemoveUnmatchedLeftColorItems(ColorEnum color);
 
     bool IsFullInventory();
 

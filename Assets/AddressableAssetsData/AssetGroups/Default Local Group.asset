@@ -14,7 +14,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_GroupName: Default Local Group
   m_GUID: 315b40a8345ff69488a3d8b2d127799a
-  m_SerializeEntries: []
+  m_SerializeEntries:
+  - m_GUID: 10f7c7c2323a44d47a85912da9f73828
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/CyanEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5bb91862f2cbfce4e8926c355b73ffc5
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/GreenEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d7782634952b6e04984949c392e6f6f7
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/WhiteEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d80b97760f2f12c4abdbce5bbbd37157
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/YellowEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: f4163d5a53277a04dba006f45187b722
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/PurpleEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: fe49bef6e1f8b1a41b54097b6a814a17
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/BlueEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: e88b0302c9c296d4689b6daa36f3787a, type: 2}
   m_SchemaSet:

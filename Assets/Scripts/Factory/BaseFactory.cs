@@ -12,7 +12,9 @@ public class BaseFactory : MonoBehaviour
     private void Awake()
     {
         InitializeProductDictionary();
+    
     }
+
 
     private void InitializeProductDictionary()
     {

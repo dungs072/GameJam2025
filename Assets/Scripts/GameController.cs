@@ -26,12 +26,20 @@ public class GameController : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
         Initialize();
+        GameLoader.OnPrefabLoaded += RegisterProduct;
     }
     private void Initialize()
     {
         Loader.LoadAllPrefabs();
+    }
+    void OnDestroy()
+    {
+        GameLoader.OnPrefabLoaded -= RegisterProduct;
+    }
+    private void RegisterProduct(string id, Prop product)
+    {
+        Factory.RegisterProduct(id, product.gameObject);
     }
 
     public void EnableInput()

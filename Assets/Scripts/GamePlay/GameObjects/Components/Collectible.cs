@@ -5,6 +5,10 @@ public class Collectible : MonoBehaviour, IPropComponent
     [SerializeField] private int amount = 1;
     private ProductData productData;
     private int currentAmount;
+    void OnEnable()
+    {
+        currentAmount = amount;
+    }
     void Awake()
     {
         productData = GetComponent<Prop>().productData;

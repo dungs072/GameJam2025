@@ -24,7 +24,7 @@ public class Movement
     private Vector2 dashDir;
     private BlockState blockState = BlockState.None;
 
-
+    
 
     //! use for optimization gravity check
     private Vector3 prePosition = Vector3.zero;

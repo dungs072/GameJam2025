@@ -6,9 +6,8 @@ using UnityEngine;
 public class BaseFactory : MonoBehaviour
 {
     [SerializeField] private List<GameObject> products;
-    [SerializeField] private int startId = 8;
-    private Dictionary<int, GameObject> productRecord = new();
-    private Dictionary<int, List<GameObject>> productCache = new();
+    private Dictionary<string, GameObject> productRecord = new();
+    private Dictionary<string, List<GameObject>> productCache = new();
     private void Awake()
     {
         InitializeProductDictionary();
@@ -16,16 +15,15 @@ public class BaseFactory : MonoBehaviour
 
     private void InitializeProductDictionary()
     {
-        productRecord = new Dictionary<int, GameObject>();
+        productRecord = new Dictionary<string, GameObject>();
         for (int i = 0; i < products.Count; i++)
         {
-            productRecord.Add(i, products[i]);
+            productRecord.Add(products[i].name, products[i]);
         }
     }
 
-    public void RegisterProduct(GameObject product)
+    public void RegisterProduct(string id, GameObject product)
     {
-        int id = productRecord.Count;
         if (!productRecord.ContainsKey(id))
         {
             productRecord.Add(id, product);
@@ -35,7 +33,7 @@ public class BaseFactory : MonoBehaviour
             Debug.LogWarning($"Product with Name {product.name} is already registered.");
         }
     }
-    public GameObject GetProduct(int productId)
+    public GameObject GetProduct(string productId)
     {
         if (!IsValidProductId(productId))
         {
@@ -63,11 +61,11 @@ public class BaseFactory : MonoBehaviour
         selectedProduct.SetActive(true);
         return selectedProduct;
     }
-    private bool IsValidProductId(int productId)
+    private bool IsValidProductId(string productId)
     {
         return productRecord.ContainsKey(productId);
     }
-    private GameObject CreateNewProduct(int productId)
+    private GameObject CreateNewProduct(string productId)
     {
         GameObject newProduct = Instantiate(productRecord[productId]);
         var list = productCache.GetValueOrDefault(productId, new List<GameObject>());

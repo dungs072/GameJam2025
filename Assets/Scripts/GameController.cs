@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameController : MonoBehaviour
 
     [Header("Data")]
     [field: SerializeField] public ColorRuler ColorRuler { get; private set; }
+    [Header("Input")]
+    [SerializeField] private EventSystem eventSystem;
     public static event Action<bool> OnInputStateChanged;
 
     public static GameController Instance { get; private set; }
@@ -33,13 +36,13 @@ public class GameController : MonoBehaviour
 
     public void EnableInput()
     {
-        UnityEngine.EventSystems.EventSystem.current.enabled = true;
+        eventSystem.enabled = true;
         OnInputStateChanged?.Invoke(true);
 
     }
     public void DisableInput()
     {
-        UnityEngine.EventSystems.EventSystem.current.enabled = false;
+        eventSystem.enabled = false;
         OnInputStateChanged?.Invoke(false);
     }
 }

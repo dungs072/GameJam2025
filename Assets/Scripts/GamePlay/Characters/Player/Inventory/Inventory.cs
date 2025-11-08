@@ -7,6 +7,7 @@ using UnityEngine;
 [Serializable]
 public class Inventory
 {
+    public static event Action<string, int> OnInventoryChanged;
     public IReadOnlyDictionary<string, int> Items => items;
     private Dictionary<string, int> items = new();
     private int maxSize = 100;
@@ -17,7 +18,6 @@ public class Inventory
     }
     public int GetItemCount(string productId)
     {
-        Debug.Log($"<color=#df6325>productId: {productId}</color>");
         if (items.ContainsKey(productId))
         {
             return items[productId];
@@ -51,10 +51,12 @@ public class Inventory
 
             quantity += totalAmountToAdd;
             items[productId] = quantity;
+            NotifyInventoryChanged(productId);
         }
         else
         {
             items.Add(productId, totalAmountToAdd);
+            NotifyInventoryChanged(productId);
         }
 
         return true;
@@ -77,6 +79,7 @@ public class Inventory
                 {
                     items[productId] = quantity;
                 }
+                NotifyInventoryChanged(productId);
                 return true;
             }
         }
@@ -90,6 +93,7 @@ public class Inventory
             if (item.Key != productId)
             {
                 items.Remove(item.Key);
+                NotifyInventoryChanged(item.Key);
                 break;
             }
         }
@@ -107,6 +111,12 @@ public class Inventory
             total += quantity;
         }
         return total;
+    }
+    private void NotifyInventoryChanged(string productId)
+    {
+        int newAmount = GetItemCount(productId);
+        Debug.Log($"<color=#78ee15>newAmount: {newAmount}</color>");
+        OnInventoryChanged?.Invoke(productId, newAmount);
     }
 
 }

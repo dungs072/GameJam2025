@@ -113,17 +113,16 @@ namespace BaseEngine
         }
         private IEnumerator HandleButtonClicked(PointerEventData eventData)
         {
-            if (pointerDownAnim != null)
-            {
-                yield return pointerDownAnim;
-            }
-            yield return PlayPointerUpAnim();
-            isClicking = false;
             var canClick = true;
             if (isClickedOnHitArea && !IsPointerOverUI(eventData))
             {
                 canClick = false;
             }
+            if (pointerDownAnim != null)
+            {
+                yield return pointerDownAnim;
+            }
+            yield return PlayPointerUpAnim();
             if (!canClick)
             {
                 InitButtonState();

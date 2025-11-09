@@ -229,7 +229,10 @@ MonoBehaviour:
   isClickedOnHitArea: 1
   buttonType: 1
   scaleDownFactor: 0.9
-  scaleUpFactor: 1
+  defaultScaleFactor: 1
+  scaleHoverUpFactor: 1.2
+  scaleAfterClick: 1.1
+  scaleHoverDuration: 0.2
   scaleDuration: 0.3
   buttonState: 0
   bubbleUpFactor: 1.2
@@ -503,7 +506,10 @@ MonoBehaviour:
   isClickedOnHitArea: 1
   buttonType: 1
   scaleDownFactor: 0.9
-  scaleUpFactor: 1
+  defaultScaleFactor: 1
+  scaleHoverUpFactor: 1.2
+  scaleAfterClick: 1.1
+  scaleHoverDuration: 0.2
   scaleDuration: 0.3
   buttonState: 0
   bubbleUpFactor: 1.2
@@ -587,6 +593,7 @@ GameObject:
   - component: {fileID: 2021695292949240427}
   - component: {fileID: 2570414419842498366}
   - component: {fileID: 4336723858795361395}
+  - component: {fileID: 1593904570320002392}
   m_Layer: 0
   m_Name: Background
   m_TagString: Untagged
@@ -651,6 +658,22 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1593904570320002392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7868711889456377221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86412da4618b74c47b21908651b37fce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  starCount: 100
+  starSprite: {fileID: 0}
+  minSpeed: 5
+  maxSpeed: 20
 --- !u!1 &8292989037184443090
 GameObject:
   m_ObjectHideFlags: 0

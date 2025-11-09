@@ -15,23 +15,7 @@ public class InventoryUI : MonoBehaviour
         {
             if (block.HasProductId(productId))
             {
-                if (amount == 0)
-                {
-                    block.SetData("", null, 0);
-                }
-                else
-                {
-                    block.SetData(productId, icon, amount);
-                    return;
-                }
-            }
-        }
-        foreach (var block in inventoryBlocks)
-        {
-            if (block.IsEmpty())
-            {
-                block.SetData(productId, icon, amount);
-                return;
+                block.SetData(amount);
             }
         }
     }

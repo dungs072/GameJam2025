@@ -1,33 +1,23 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 public class InventoryBlock : MonoBehaviour
 {
     [SerializeField] private Image iconImage;
-    [SerializeField] private TMP_Text amountText;
-    private string productId;
+    [SerializeField] private Image iconDisabledImage;
+    [SerializeField] private string productId;
 
     void Start()
     {
-        SetData("", null, 0);
+        SetData(0);
     }
 
-    public void SetData(string id, Sprite icon, int amount)
+    public void SetData(int amount)
     {
-        productId = id;
-        iconImage.sprite = amount == 0 ? null : icon;
-        string text = amount == 0 ? "" : "X" + amount.ToString();
-        amountText.text = text;
-        this.iconImage.enabled = iconImage.sprite != null;
-    }
-    public bool IsEmpty()
-    {
-        return iconImage.sprite == null;
+        iconDisabledImage.enabled = amount == 0;
+        iconImage.enabled = amount > 0;
     }
     public bool HasProductId(string id)
     {
         return productId == id;
     }
-
-
 }

@@ -125,7 +125,8 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 64
     transform: {fileID: 8910086358057996089}
-  collisionDetector: {fileID: 0}
+  playerSkin:
+    renderer: {fileID: 8152291402974534702}
 --- !u!1 &7990648671541675907
 GameObject:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ GameObject:
   - component: {fileID: 3725479561554473870}
   - component: {fileID: 8152291402974534702}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Skin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -201,7 +202,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

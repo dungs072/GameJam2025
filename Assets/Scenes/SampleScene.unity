@@ -1341,26 +1341,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 291840327625334211, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3522986368881677776, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3522986368881677776, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3522986368881677776, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 49.6847
-      objectReference: {fileID: 0}
-    - target: {fileID: 3522986368881677776, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -158.01186
-      objectReference: {fileID: 0}
     - target: {fileID: 4418284080295471295, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1440,38 +1420,6 @@ PrefabInstance:
     - target: {fileID: 4418284080295471295, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054017252536517058, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054017252536517058, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054017252536517058, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 49.6847
-      objectReference: {fileID: 0}
-    - target: {fileID: 7054017252536517058, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -52.67062
-      objectReference: {fileID: 0}
-    - target: {fileID: 8695541547203540538, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8695541547203540538, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8695541547203540538, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 49.6847
-      objectReference: {fileID: 0}
-    - target: {fileID: 8695541547203540538, guid: bafeeb5e962c4ce4498e55cf93b0de4b, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -263.3531
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3875,6 +3823,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2039006032}
     m_Modifications:
+    - target: {fileID: 1593904570320002392, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
+      propertyPath: starSprite
+      value: 
+      objectReference: {fileID: -5779749068701307479, guid: 7da47bf42aba04f0a937aca641f62d56, type: 3}
+    - target: {fileID: 1593904570320002392, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
+      propertyPath: starSprites.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1593904570320002392, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
+      propertyPath: 'starSprites.Array.data[0]'
+      value: 
+      objectReference: {fileID: 5839647283378204496, guid: d21bc56f6c76e483baa7359a86805749, type: 3}
+    - target: {fileID: 1593904570320002392, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
+      propertyPath: 'starSprites.Array.data[1]'
+      value: 
+      objectReference: {fileID: -5779749068701307479, guid: 7da47bf42aba04f0a937aca641f62d56, type: 3}
+    - target: {fileID: 1593904570320002392, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
+      propertyPath: 'starSprites.Array.data[2]'
+      value: 
+      objectReference: {fileID: 9027652915133689400, guid: d2260fb38f53e43a0915e0b5308f9b5d, type: 3}
     - target: {fileID: 5595557808486467861, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -3958,10 +3926,6 @@ PrefabInstance:
     - target: {fileID: 6446831589436556253, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
       propertyPath: m_Name
       value: DashboardScreen
-      objectReference: {fileID: 0}
-    - target: {fileID: 6446831589436556253, guid: dd1ed8dff2143ea4e8069b521d729e06, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

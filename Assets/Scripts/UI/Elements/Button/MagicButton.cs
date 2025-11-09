@@ -17,7 +17,7 @@ namespace BaseEngine
         BUBBLE,
     }
     [RequireComponent(typeof(RectTransform))]
-    public class MagicButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+    public class MagicButton : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
     {
         private Action OnClicked;
         [SerializeField] private float increasePercentHitArea = 0.1f;
@@ -26,15 +26,18 @@ namespace BaseEngine
         // for scale button only
         [Header("Scale button")]
         [SerializeField] private float scaleDownFactor = 0.9f;
-        [SerializeField] private float scaleUpFactor = 1f;
-        [SerializeField] private float scaleDuration = 0.3f;
+        [SerializeField] private float defaultScaleFactor = 1f;
+        [SerializeField] private float scaleHoverUpFactor = 1.2f;
+        [SerializeField] private float scaleAfterClick = 1.1f;
+        [SerializeField] private float scaleHoverDuration = 0.2f;
+        [SerializeField] private float scaleDuration = 0.2f;
         [Header("State")]
         [SerializeField] private ButtonState buttonState = ButtonState.NONE;
         // for bubble config only
         [SerializeField] private float bubbleUpFactor = 1.2f;
         [SerializeField] private float bubbleDownFactor = 0.95f;
-        [SerializeField] private float bubbleUpDuration = 0.3f;
-        [SerializeField] private float bubbleDownDuration = 0.5f;
+        [SerializeField] private float bubbleUpDuration = 0.1f;
+        [SerializeField] private float bubbleDownDuration = 0.1f;
 
         private RectTransform rectTransform;
         private Coroutine pointerDownAnim;
@@ -83,6 +86,16 @@ namespace BaseEngine
 
         }
 
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            transform.DOScale(scaleHoverUpFactor, scaleHoverDuration);
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (isClicking) return;
+            transform.DOScale(defaultScaleFactor, scaleHoverDuration);
+        }
 
         public void OnPointerDown(PointerEventData eventData)
         {
@@ -134,7 +147,7 @@ namespace BaseEngine
         {
             if (buttonType == ButtonType.SCALE)
             {
-                var scaleDownAnim = transform.DOScale(scaleUpFactor, scaleDuration);
+                var scaleDownAnim = transform.DOScale(scaleAfterClick, scaleDuration);
                 yield return scaleDownAnim.WaitForCompletion();
             }
         }

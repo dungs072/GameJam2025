@@ -7,10 +7,10 @@ public class Passable : MonoBehaviour, IPropComponent
     public bool HandleInteractWithCharacter(ICharacter character)
     {
         if (!CanGoThrough(character)) return false;
-        foreach (var colorStack in ownColors)
-        {
-            character.RemoveUnmatchedLeftColorItems(colorStack.color);
-        }
+        // foreach (var colorStack in ownColors)
+        // {
+        //     character.RemoveUnmatchedLeftColorItems(colorStack.color);
+        // }
         return true;
     }
     private bool CanGoThrough(ICharacter character)

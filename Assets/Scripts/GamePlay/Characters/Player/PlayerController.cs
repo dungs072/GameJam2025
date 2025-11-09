@@ -21,6 +21,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     void Start()
     {
         movement.Init(inputHandler);
+        playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
     }
     void OnDestroy()
     {

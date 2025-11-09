@@ -6,8 +6,8 @@ public class StarBackground : MonoBehaviour
 {
     [SerializeField] private int starCount = 100;
     [SerializeField] private Sprite[] starSprites;
-    [SerializeField] private float minSpeed = 10f;
-    [SerializeField] private float maxSpeed = 40f;
+    [SerializeField] private float minSpeed = 0f;
+    [SerializeField] private float maxSpeed = 5f;
 
     private RectTransform rect;
     private readonly List<Star> stars = new();
@@ -46,7 +46,7 @@ public class StarBackground : MonoBehaviour
         {
             var pos = star.transform.anchoredPosition;
             pos.y -= star.speed * Time.deltaTime;
-            pos.x += star.speed * Time.deltaTime * 0.25f;
+            pos.x += star.speed * Time.deltaTime * 0.5f;
 
             // When off-screen, reset to top
             if (pos.y < -rect.rect.height / 2f)
@@ -68,15 +68,17 @@ public class StarBackground : MonoBehaviour
         img.sprite = starSprites[Random.Range(0, starSprites.Length)];
         img.color = new Color(1f, 1f, 1f, Random.Range(0.7f, 1f));
 
+        var starSize = Random.Range(1f, 3f);
+
         RectTransform rt = img.rectTransform;
-        rt.sizeDelta = Vector2.one * Random.Range(1f, 3f);
+        rt.sizeDelta = Vector2.one * starSize;
 
         rt.anchoredPosition = new Vector2(
             Random.Range(-rect.rect.width / 2f, rect.rect.width / 2f),
             Random.Range(-rect.rect.height / 2f, rect.rect.height / 2f)
         );
 
-        Star star = new Star { transform = rt, speed = Random.Range(minSpeed, maxSpeed) };
+        Star star = new() { transform = rt, speed = Random.Range(minSpeed, maxSpeed) + starSize};
         stars.Add(star);
     }
 }

@@ -18,6 +18,10 @@ public class Inventory
     {
         this.maxSize = maxSize;
     }
+    public List<string> GetAllItemIDs()
+    {
+        return items.Keys.ToList();
+    }
     public int GetItemCount(string productId)
     {
         if (items.ContainsKey(productId))

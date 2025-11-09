@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ICharacter
 {
     [SerializeField] private Movement movement;
+    [SerializeField] private PlayerSkin playerSkin;
     private InputHandler inputHandler;
     private Inventory inventory;
     void Awake()
@@ -27,9 +28,13 @@ public class PlayerController : MonoBehaviour, ICharacter
     }
     private void HandleItemRemoved(string itemID, int amount)
     {
-        var factory = GameController.Instance.Factory;
-        var item = factory.GetProduct(itemID);
-        item.transform.position = transform.position + Vector3.up * 5f;
+        for (int i = 0; i < amount; i++)
+        {
+            var factory = GameController.Instance.Factory;
+            var item = factory.GetProduct(itemID);
+            item.transform.position = transform.position + Vector3.up * 5f;
+        }
+
     }
     void Update()
     {
@@ -57,6 +62,8 @@ public class PlayerController : MonoBehaviour, ICharacter
         }
         Debug.Log($"<color=#e468d9>colorIds: {colorIds.Count}</color>");
         inventory.RemoveUnMatchedLeftItems(colorIds);
+        var availableColorIds = inventory.GetAllItemIDs();
+        playerSkin.SwitchSkinColor(availableColorIds);
     }
 
     void OnTriggerEnter2D(Collider2D collision)
@@ -89,5 +96,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     public void AddItemToInventory(string itemID, ref int amount)
     {
         inventory.AddItem(itemID, ref amount);
+        var availableColorIds = inventory.GetAllItemIDs();
+        playerSkin.SwitchSkinColor(availableColorIds);
     }
 }

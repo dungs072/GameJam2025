@@ -1,0 +1,107 @@
+{
+  "gridWidth": 40,
+  "gridHeight": 20,
+  "platforms": [
+    {
+      "x": 0,
+      "y": 9,
+      "width": 1,
+      "height": 7
+    },
+    {
+      "x": 28,
+      "y": 9,
+      "width": 1,
+      "height": 7
+    },
+    {
+      "x": 1,
+      "y": 15,
+      "width": 9,
+      "height": 1
+    },
+    {
+      "x": 10,
+      "y": 16,
+      "width": 18,
+      "height": 1
+    }
+  ],
+  "items": [
+    {
+      "type": "blue",
+      "x": 8,
+      "y": 11
+    },
+    {
+      "type": "blue",
+      "x": 8,
+      "y": 12
+    },
+    {
+      "type": "red",
+      "x": 12,
+      "y": 12
+    },
+    {
+      "type": "green",
+      "x": 14,
+      "y": 12
+    },
+    {
+      "type": "yellow",
+      "x": 16,
+      "y": 12
+    }
+  ],
+  "blocks": [
+    {
+      "type": 10,
+      "x": 10,
+      "y": 12,
+      "width": 1,
+      "height": 4
+    },
+    {
+      "type": 14,
+      "x": 18,
+      "y": 12,
+      "width": 1,
+      "height": 4
+    },
+    {
+      "type": 13,
+      "x": 19,
+      "y": 12,
+      "width": 1,
+      "height": 4
+    }
+  ],
+  "filters": [
+    {
+      "type": 18,
+      "x": 23,
+      "y": 10,
+      "width": 1,
+      "height": 4
+    },
+    {
+      "type": 21,
+      "x": 24,
+      "y": 10,
+      "width": 1,
+      "height": 6
+    },
+    {
+      "type": 23,
+      "x": 26,
+      "y": 10,
+      "width": 1,
+      "height": 5
+    }
+  ],
+  "playerStart": {
+    "x": 3,
+    "y": 14
+  }
+}

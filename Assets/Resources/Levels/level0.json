@@ -56,21 +56,21 @@
   ],
   "blocks": [
     {
-      "type": 10,
+      "type": "red",
       "x": 10,
       "y": 12,
       "width": 1,
       "height": 4
     },
     {
-      "type": 14,
+      "type": "blue",
       "x": 18,
       "y": 12,
       "width": 1,
       "height": 4
     },
     {
-      "type": 13,
+      "type": "green",
       "x": 19,
       "y": 12,
       "width": 1,

@@ -20,8 +20,8 @@ public class GameLoader
     public IReadOnlyDictionary<string, Prop> LoadedObjectsDict => loadedObjectsDict;
 
     private readonly List<MyTile> loadedTiles = new();
-    private readonly Dictionary<int, MyTile> loadedTilesDict = new();
-    public IReadOnlyDictionary<int, MyTile> LoadedTilesDict => loadedTilesDict;
+    private readonly Dictionary<string, MyTile> loadedTilesDict = new();
+    public IReadOnlyDictionary<string, MyTile> LoadedTilesDict => loadedTilesDict;
 
     public void LoadAllPrefabs()
     {
@@ -77,7 +77,7 @@ public class GameLoader
                     var tile = handle.Result; // This is the tile asset, NOT an instance
                     Debug.Log($"Loaded tile asset: {tile.name}");
                     loadedTiles.Add(tile);
-                    loadedTilesDict[tile.Type] = tile;
+                    loadedTilesDict[tile.Id] = tile;
                 }
 
             };

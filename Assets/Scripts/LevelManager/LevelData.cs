@@ -35,7 +35,7 @@ public class ItemData
 [Serializable]
 public class BlockData
 {
-    public int type;
+    public string type;
     public int x;
     public int y;
     public int width;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 [Serializable]
@@ -8,7 +9,8 @@ public class LevelManager
     [SerializeField] private Tilemap blockTileMap;
     [SerializeField] private Tilemap filterTileMap;
 
-    private TileBase[] blockTiles;
+    private Dictionary<string, List<Vector3Int>> blockPositions = new();
+
     private TileBase[] filterTiles;
 
     public LevelData CurrentLevel { get; private set; }
@@ -37,6 +39,7 @@ public class LevelManager
     {
         platformTileMap.ClearAllTiles();
         blockTileMap.ClearAllTiles();
+        blockPositions.Clear();
         // filterTileMap.ClearAllTiles();
         // itemTileMap.ClearAllTiles();
     }
@@ -46,7 +49,8 @@ public class LevelManager
         var loader = GameController.Instance.Loader;
         foreach (var p in CurrentLevel.platforms)
         {
-            var platformTile = loader.LoadedTilesDict[p.type];
+            string typeStr = p.type.ToString();
+            var platformTile = loader.LoadedTilesDict[typeStr];
             FillRect(platformTileMap, platformTile, p.x, p.y, p.width, p.height);
         }
     }
@@ -57,7 +61,15 @@ public class LevelManager
         foreach (var b in CurrentLevel.blocks)
         {
             var blockTile = loader.LoadedTilesDict[b.type];
-            FillRect(blockTileMap, blockTile, b.x, b.y, b.width, b.height);
+            FillRect(blockTileMap, blockTile, b.x, b.y, b.width, b.height, OnSetTile: (pos) =>
+            {
+                if (!blockPositions.ContainsKey(b.type))
+                {
+                    blockPositions[b.type] = new List<Vector3Int>();
+                }
+                blockPositions[b.type].Add(pos);
+
+            });
         }
     }
 
@@ -71,7 +83,7 @@ public class LevelManager
     }
 
 
-    private void FillRect(Tilemap tm, TileBase tile, int x, int y, int w, int h)
+    private void FillRect(Tilemap tm, TileBase tile, int x, int y, int w, int h, Action<Vector3Int> OnSetTile = null)
     {
         y += World.SkewedTileHeight;
         //? coordinate system is -y: up, +y: down
@@ -81,7 +93,9 @@ public class LevelManager
         {
             for (int iy = y; iy > y + h; iy--)
             {
-                tm.SetTile(new Vector3Int(ix, iy, 0), tile);
+                Vector3Int pos = new Vector3Int(ix, iy, 0);
+                tm.SetTile(pos, tile);
+                OnSetTile?.Invoke(pos);
             }
         }
     }

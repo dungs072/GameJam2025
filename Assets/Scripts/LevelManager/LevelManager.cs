@@ -5,6 +5,7 @@ using UnityEngine.Tilemaps;
 [Serializable]
 public class LevelManager
 {
+    public static event Action<Vector3> OnPlayerStartPositionReady;
     [SerializeField] private Tilemap platformTileMap;
     [SerializeField] private Tilemap blockTileMap;
     [SerializeField] private Tilemap filterTileMap;
@@ -120,7 +121,6 @@ public class LevelManager
 
     private void FillRect(Tilemap tm, TileBase tile, int x, int y, int w, int h, Action<Vector3Int> OnSetTile = null)
     {
-        y += World.SkewedTileHeight;
         //? coordinate system is -y: up, +y: down
         y *= -1;
         h *= -1;
@@ -141,11 +141,17 @@ public class LevelManager
         foreach (var itemData in CurrentLevel.items)
         {
             var item = factory.GetProduct(itemData.type);
-            var newY = itemData.y - World.SkewedTileHeight;
-            Debug.Log($"<color=#2db2fc>newY: {newY}</color>");
-            var worldPos = platformTileMap.CellToWorld(new Vector3Int(itemData.x, newY, 0));
+            var newY = itemData.y - 4;
+            var worldPos = platformTileMap.GetCellCenterWorld(new Vector3Int(itemData.x, newY, 0));
             item.transform.position = worldPos;
         }
+    }
+    public void BuildPlayerStartPosition()
+    {
+        var newY = CurrentLevel.playerStart.y - 4;
+        var startCell = new Vector3Int(CurrentLevel.playerStart.x, newY, 0);
+        var worldPos = platformTileMap.GetCellCenterWorld(startCell);
+        OnPlayerStartPositionReady?.Invoke(worldPos);
     }
 }
 

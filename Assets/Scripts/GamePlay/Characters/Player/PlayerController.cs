@@ -100,4 +100,9 @@ public class PlayerController : MonoBehaviour, ICharacter
         var availableColorIds = inventory.GetAllItemIDs();
         playerSkin.SwitchSkinColor(availableColorIds);
     }
+
+    public List<string> GetAllItemIDs()
+    {
+        return inventory.GetAllItemIDs();
+    }
 }

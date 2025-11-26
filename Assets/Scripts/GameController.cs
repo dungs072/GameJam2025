@@ -47,7 +47,7 @@ public class GameController : MonoBehaviour
 
     private void RegisterAllPrefabs()
     {
-        LevelManager.LoadLevel(0);
+        LevelManager.LoadLevel(1);
     }
 
     public void EnableInput()

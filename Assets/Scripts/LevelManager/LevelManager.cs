@@ -15,6 +15,40 @@ public class LevelManager
 
     public LevelData CurrentLevel { get; private set; }
 
+    public LevelManager()
+    {
+        CollectibleColor.OnColorCollected += HandleCollectibleColor;
+    }
+    ~LevelManager()
+    {
+        CollectibleColor.OnColorCollected -= HandleCollectibleColor;
+    }
+    private void HandleCollectibleColor(List<string> colorIds)
+    {
+        if (!blockTileMap) return;
+        foreach (var kvp in blockPositions)
+        {
+            var blockType = kvp.Key;
+            var block = kvp.Value;
+            var isSameColor = colorIds.Contains(blockType);
+            foreach (var pos in block)
+            {
+                var colliderType = Tile.ColliderType.Sprite;
+                var color = blockTileMap.GetColor(pos);
+                var alpha = 1f;
+                if (isSameColor)
+                {
+                    colliderType = Tile.ColliderType.None;
+                    alpha = 0.25f;
+                }
+                blockTileMap.SetTileFlags(pos, TileFlags.None);
+                blockTileMap.SetColliderType(pos, colliderType);
+                blockTileMap.SetColor(pos, new Color(color.r, color.g, color.b, alpha));
+
+            }
+        }
+    }
+
     public void LoadLevel(int levelIndex)
     {
         TextAsset jsonFile = Resources.Load<TextAsset>("Levels/level" + levelIndex);
@@ -25,7 +59,8 @@ public class LevelManager
             return;
         }
 
-        CurrentLevel = JsonUtility.FromJson<LevelData>(jsonFile.text);
+        var levels = JsonUtility.FromJson<LevelsData>(jsonFile.text);
+        CurrentLevel = levels.levels[levelIndex - 1];
         Debug.Log("Level loaded: level " + levelIndex);
 
         ClearAllTileMaps();
@@ -49,7 +84,7 @@ public class LevelManager
         var loader = GameController.Instance.Loader;
         foreach (var p in CurrentLevel.platforms)
         {
-            string typeStr = p.type.ToString();
+            string typeStr = p.tileId.ToString();
             var platformTile = loader.LoadedTilesDict[typeStr];
             FillRect(platformTileMap, platformTile, p.x, p.y, p.width, p.height);
         }
@@ -106,12 +141,10 @@ public class LevelManager
         foreach (var itemData in CurrentLevel.items)
         {
             var item = factory.GetProduct(itemData.type);
-            Vector3 itemPosition = new Vector3(
-                itemData.x + World.TileWidth / 2f,
-                itemData.y + World.TileHeight / 2f + World.SkewedTileHeight,
-                0f
-            );
-            item.transform.position = itemPosition;
+            var newY = itemData.y - World.SkewedTileHeight;
+            Debug.Log($"<color=#2db2fc>newY: {newY}</color>");
+            var worldPos = platformTileMap.CellToWorld(new Vector3Int(itemData.x, newY, 0));
+            item.transform.position = worldPos;
         }
     }
 }

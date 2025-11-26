@@ -1,7 +1,10 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleColor : MonoBehaviour, IPropComponent
 {
+    public static event Action<List<string>> OnColorCollected;
     [SerializeField] private int amount = 1;
     private ProductData productData;
     private int currentAmount;
@@ -23,6 +26,7 @@ public class CollectibleColor : MonoBehaviour, IPropComponent
         if (parentColors.Length == 0)
         {
             character.AddItemToInventory(productData.Id, ref currentAmount);
+
         }
         else
         {
@@ -33,6 +37,8 @@ public class CollectibleColor : MonoBehaviour, IPropComponent
                 character.AddItemToInventory(id, ref newAmount);
             }
         }
+        var collectedColors = character.GetAllItemIDs();
+        OnColorCollected?.Invoke(collectedColors);
         //! take all collected items
         gameObject.SetActive(false);
         return true;

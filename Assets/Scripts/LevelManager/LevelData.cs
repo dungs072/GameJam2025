@@ -1,6 +1,11 @@
 using System;
 
 [Serializable]
+public class LevelsData
+{
+    public LevelData[] levels;
+}
+[Serializable]
 public class LevelData
 {
     public int gridWidth;
@@ -17,7 +22,7 @@ public class LevelData
 [Serializable]
 public class PlatformData
 {
-    public int type = 1;
+    public int tileId;
     public int x;
     public int y;
     public int width;

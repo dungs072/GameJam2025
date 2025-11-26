@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface ICharacter
@@ -8,4 +9,5 @@ public interface ICharacter
     bool IsFullInventory();
 
     void AddItemToInventory(string itemID, ref int amount);
+    List<string> GetAllItemIDs();
 }

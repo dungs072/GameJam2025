@@ -130,7 +130,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5779749068701307479, guid: 7da47bf42aba04f0a937aca641f62d56, type: 3}
+  m_Sprite: {fileID: -8010355191573385688, guid: 9b7dd35c6d98c479d9897b0f1c284513, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 9027652915133689400, guid: d2260fb38f53e43a0915e0b5308f9b5d, type: 3}
+  m_Sprite: {fileID: -3373347942709911176, guid: bd7f76dff7c0f494fbcfedda30cdc432, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5839647283378204496, guid: d21bc56f6c76e483baa7359a86805749, type: 3}
+  m_Sprite: {fileID: 6629532857398941103, guid: 91feba0afafb2460ba753840a2f8fe06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -431,7 +431,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 9027652915133689400, guid: d2260fb38f53e43a0915e0b5308f9b5d, type: 3}
+  m_Sprite: {fileID: -3373347942709911176, guid: bd7f76dff7c0f494fbcfedda30cdc432, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -721,7 +721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: -5779749068701307479, guid: 7da47bf42aba04f0a937aca641f62d56, type: 3}
+  m_Sprite: {fileID: -8010355191573385688, guid: 9b7dd35c6d98c479d9897b0f1c284513, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -982,7 +982,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 5839647283378204496, guid: d21bc56f6c76e483baa7359a86805749, type: 3}
+  m_Sprite: {fileID: 6629532857398941103, guid: 91feba0afafb2460ba753840a2f8fe06, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

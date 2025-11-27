@@ -24,7 +24,7 @@ public class Movement
     private Vector2 dashDir;
     private BlockState blockState = BlockState.None;
 
-    
+
 
     //! use for optimization gravity check
     private Vector3 prePosition = Vector3.zero;
@@ -43,6 +43,7 @@ public class Movement
     {
         Move(inputHandler.MoveValue);
         TryUpdateGravity();
+        UpdateBlockMove();
         if (inputHandler.IsJumping)
         {
             Jump();
@@ -59,6 +60,27 @@ public class Movement
 
         UpdateTransformBaseVelocity();
     }
+    public void UpdateBlockMove()
+    {
+        var isLeft = CheckWall(Vector2.left);
+        var isRight = CheckWall(Vector2.right);
+        SetBlockState(isLeft ? BlockState.Left : isRight ? BlockState.Right : BlockState.None);
+    }
+    bool CheckWall(Vector2 direction)
+    {
+        Vector2 boxSize = new Vector2(0.5f, 1f);
+        float checkDistance = 0.5f;
+        RaycastHit2D hit = Physics2D.BoxCast(
+                transform.position,
+                boxSize,
+                0f,
+                direction,
+                checkDistance,
+                groundLayer
+            );
+
+        return hit.collider != null;
+    }
     private void Move(Vector2 moveInput)
     {
         if (isDashing) return;
@@ -74,9 +96,11 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        if (Physics2D.Raycast(transform.position, Vector2.down, 1.5f, groundLayer))
+        var raycastHit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, groundLayer);
+        if (raycastHit.collider != null)
         {
             SetGroundedState(true);
+            //SnapToGround(raycastHit);
             if (velocity.y <= 0)
             {
                 velocity = new Vector3(velocity.x, 0, 0);
@@ -88,6 +112,11 @@ public class Movement
             velocity += new Vector3(0, -MathConfig.GRAVITY * Time.deltaTime, 0);
             SetGroundedState(false);
         }
+    }
+    private void SnapToGround(RaycastHit2D hit)
+    {
+        var groundY = hit.normal.y + hit.point.y;
+        transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
     }
 
 

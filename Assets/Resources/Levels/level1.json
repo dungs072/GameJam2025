@@ -1,0 +1,222 @@
+{
+  "levels": [
+    {
+      "name": "Level 1",
+      "gridWidth": 41,
+      "gridHeight": 21,
+      "messages": {},
+      "platforms": [
+        {
+          "x": 2,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 2
+        },
+        {
+          "x": 3,
+          "y": 4,
+          "width": 2,
+          "height": 1,
+          "tileId": 3
+        },
+        {
+          "x": 5,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 39
+        },
+        {
+          "x": 6,
+          "y": 4,
+          "width": 6,
+          "height": 1,
+          "tileId": 3
+        },
+        {
+          "x": 12,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 4
+        },
+        {
+          "x": 14,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 2
+        },
+        {
+          "x": 15,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 3
+        },
+        {
+          "x": 16,
+          "y": 4,
+          "width": 1,
+          "height": 1,
+          "tileId": 4
+        },
+        {
+          "x": 2,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 14
+        },
+        {
+          "x": 3,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 15
+        },
+        {
+          "x": 4,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 16
+        },
+        {
+          "x": 6,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 14
+        },
+        {
+          "x": 7,
+          "y": 5,
+          "width": 5,
+          "height": 2,
+          "tileId": 15
+        },
+        {
+          "x": 12,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 16
+        },
+        {
+          "x": 14,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 14
+        },
+        {
+          "x": 15,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 15
+        },
+        {
+          "x": 16,
+          "y": 5,
+          "width": 1,
+          "height": 2,
+          "tileId": 16
+        },
+        {
+          "x": 2,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 26
+        },
+        {
+          "x": 3,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 27
+        },
+        {
+          "x": 4,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 28
+        },
+        {
+          "x": 6,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 26
+        },
+        {
+          "x": 7,
+          "y": 7,
+          "width": 5,
+          "height": 1,
+          "tileId": 27
+        },
+        {
+          "x": 12,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 28
+        },
+        {
+          "x": 14,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 26
+        },
+        {
+          "x": 15,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 27
+        },
+        {
+          "x": 16,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "tileId": 28
+        }
+      ],
+      "bouncePads": [],
+      "items": [
+        {
+          "x": 6,
+          "y": 2,
+          "type": "red"
+        },
+        {
+          "x": 15,
+          "y": 2,
+          "type": "red"
+        }
+      ],
+      "blocks": [
+        {
+          "x": 9,
+          "y": 2,
+          "width": 2,
+          "height": 2,
+          "type": "red"
+        }
+      ],
+      "filters": [],
+      "infoBoxes": [],
+      "playerStart": {
+        "x": 3,
+        "y": 2
+      }
+    }
+  ]
+}

@@ -6,9 +6,10 @@ public class GameController : MonoBehaviour
 {
     [field: SerializeField] public BaseFactory Factory { get; private set; }
     [field: SerializeField] public GameLoader Loader { get; private set; }
-
     [Header("Data")]
     [field: SerializeField] public ColorRuler ColorRuler { get; private set; }
+    [Header("Level manager")]
+    [field: SerializeField] public LevelManager LevelManager { get; private set; } = new();
     [Header("Input")]
     [SerializeField] private EventSystem eventSystem;
     public static event Action<bool> OnInputStateChanged;
@@ -27,7 +28,8 @@ public class GameController : MonoBehaviour
             Destroy(gameObject);
         }
         Initialize();
-        GameLoader.OnPrefabLoaded += RegisterProduct;
+        GameLoader.OnPropPrefabsLoaded += RegisterProduct;
+        GameLoader.OnAllPrefabsLoaded += RegisterAllPrefabs;
     }
     private void Initialize()
     {
@@ -35,11 +37,17 @@ public class GameController : MonoBehaviour
     }
     void OnDestroy()
     {
-        GameLoader.OnPrefabLoaded -= RegisterProduct;
+        GameLoader.OnPropPrefabsLoaded -= RegisterProduct;
+        GameLoader.OnAllPrefabsLoaded -= RegisterAllPrefabs;
     }
     private void RegisterProduct(string id, Prop product)
     {
         Factory.RegisterProduct(id, product.gameObject);
+    }
+
+    private void RegisterAllPrefabs()
+    {
+        LevelManager.LoadLevel(1);
     }
 
     public void EnableInput()
@@ -53,4 +61,5 @@ public class GameController : MonoBehaviour
         eventSystem.enabled = false;
         OnInputStateChanged?.Invoke(false);
     }
+
 }

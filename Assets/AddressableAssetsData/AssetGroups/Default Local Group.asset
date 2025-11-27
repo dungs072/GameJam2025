@@ -20,8 +20,18 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f43ee596ec402b4c8fbf41177e88ffc
+    m_Address: Assets/Data/TileData/Block2 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 5bb91862f2cbfce4e8926c355b73ffc5
     m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/GreenEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a785c5bc1ccdea94691604603d812038
+    m_Address: Assets/Data/TileData/Block2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -32,6 +42,11 @@ MonoBehaviour:
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: d80b97760f2f12c4abdbce5bbbd37157
     m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/YellowEntity.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbf91e29a71a6a47a849e2a2053a683
+    m_Address: Assets/Data/TileData/Block2 2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

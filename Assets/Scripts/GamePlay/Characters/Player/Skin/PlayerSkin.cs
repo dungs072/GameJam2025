@@ -27,7 +27,8 @@ public class PlayerSkin
         skeletonAnimation.skeleton.ScaleX = movement.IsLookingRight ? 1 : -1;
         if (movement.IsGrounded && movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.WALK)
         {
-            skeletonAnimation.AnimationState.SetAnimation(0, PlayerConfig.AnimationNames.WALK, true);
+            var entry = skeletonAnimation.AnimationState.SetAnimation(0, PlayerConfig.AnimationNames.WALK, true);
+            entry.TimeScale = 2.5f;
         }
 
         if (movement.IsGrounded && !movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.IDLE)

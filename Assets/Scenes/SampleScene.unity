@@ -1671,12 +1671,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 0.5
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1761,7 +1761,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1290259465622239386, guid: 7a75a7ed36a6d0849b89c1add07014be, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 27
       objectReference: {fileID: 0}
     - target: {fileID: 1290259465622239386, guid: 7a75a7ed36a6d0849b89c1add07014be, type: 3}
       propertyPath: m_BackGroundColor.b
@@ -1848,6 +1848,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 559010893}
     m_Modifications:
+    - target: {fileID: 196080220167971589, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 196080220167971589, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 10bc9293f49a04510a8673ae0bd72ee9, type: 2}
+    - target: {fileID: 196080220167971589, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b54a618478eea4ecc90581307f7c54b6, type: 2}
+    - target: {fileID: 196080220167971589, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: cdeb0d74becce4301bc1827cb71092dc, type: 2}
     - target: {fileID: 1282857639680927906, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1883,6 +1899,18 @@ PrefabInstance:
     - target: {fileID: 7113222254763251820, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
       propertyPath: movement.groundLayer.m_Bits
       value: 320
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1923,6 +1951,10 @@ PrefabInstance:
     - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8910086358057996089, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

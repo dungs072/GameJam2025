@@ -496,26 +496,6 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
-    - m_AssetGUID: d80b97760f2f12c4abdbce5bbbd37157
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: f4163d5a53277a04dba006f45187b722
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: 10f7c7c2323a44d47a85912da9f73828
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
-    - m_AssetGUID: d7782634952b6e04984949c392e6f6f7
-      m_SubObjectName: 
-      m_SubObjectGUID: 
-      m_SubObjectType: 
-      m_EditorAssetChanged: 0
     tileReferences:
     - m_AssetGUID: 05bc643d1a431d8498d632200b6cd532
       m_SubObjectName: 
@@ -773,6 +753,26 @@ MonoBehaviour:
       m_SubObjectType: 
       m_EditorAssetChanged: 0
     - m_AssetGUID: 65e03e59fda369341960850aad18e05b
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 6d46258831d06694f86dbd9abfbaaca0
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 4e25b50f7adc6254a81177503fd05893
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: 0ea9721d8d86959458bb6e6ddff1dfb0
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
+    - m_AssetGUID: b65f4aed695ba1f498187f3bf26bc04e
       m_SubObjectName: 
       m_SubObjectGUID: 
       m_SubObjectType: 

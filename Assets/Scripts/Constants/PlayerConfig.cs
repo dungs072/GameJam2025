@@ -61,4 +61,12 @@ public class PlayerConfig
             return BLACK;
         }
     }
+
+    public class AnimationNames
+    {
+        public const string IDLE = "Idle";
+        public const string WALK = "Walk";
+        public const string JUMP_UP = "Jump up";
+        public const string JUMP_DOWN = "Jump down";
+    }
 }

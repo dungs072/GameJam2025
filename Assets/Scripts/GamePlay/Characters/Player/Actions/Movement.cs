@@ -1,4 +1,5 @@
 using System;
+using NUnit.Framework;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -24,6 +25,15 @@ public class Movement
     private Vector2 dashDir;
     private BlockState blockState = BlockState.None;
 
+    private bool isLookingRight = true;
+
+    // For animation
+    public bool IsGrounded => isGrounded;
+    public bool IsJumpingUp => velocity.y > 0;
+    public bool IsLookingRight => isLookingRight;
+    public bool IsWalking => velocity.x != 0;
+
+    
 
 
     //! use for optimization gravity check
@@ -158,6 +168,10 @@ public class Movement
         {
             dashTimer += Time.deltaTime;
             newPosition = transform.position + velocity * Time.deltaTime;
+
+            if (velocity.x > 0) isLookingRight = true;
+            else if (velocity.x < 0) isLookingRight = false;
+
             velocity.x = Mathf.Lerp(velocity.x, 0, Time.deltaTime /
                         PlayerConfig.MovementSettings.DASH_DURATION);
             if (dashTimer >= PlayerConfig.MovementSettings.DASH_DURATION)
@@ -169,6 +183,10 @@ public class Movement
         else
         {
             newPosition += velocity * Time.deltaTime;
+
+            if (velocity.x > 0) isLookingRight = true;
+            else if (velocity.x < 0) isLookingRight = false;
+
             velocity.x = Mathf.Lerp(velocity.x, 0, PlayerConfig.MovementSettings.FRICTION * Time.deltaTime);
             if (Mathf.Abs(velocity.x) < Mathf.Epsilon)
             {

@@ -1852,6 +1852,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1684531625950318307, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
+      propertyPath: skeletonDataAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: d201c150c1f4f4a4fa0a813908618ad6, type: 2}
     - target: {fileID: 2561798800989629533, guid: 4f752cb020c742a4abd0783eb7e81bc3, type: 3}
       propertyPath: m_Mesh
       value: 

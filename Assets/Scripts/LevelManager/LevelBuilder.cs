@@ -14,6 +14,8 @@ public class LevelBuilder : MonoBehaviour
 
     private const int BATCH_SIZE = 50;
 
+    private LevelData currentLevel;
+
     void Awake()
     {
         Inventory.OnInventoryItemsChanged += HandleCollectibleColor;
@@ -21,6 +23,24 @@ public class LevelBuilder : MonoBehaviour
     void OnDestroy()
     {
         Inventory.OnInventoryItemsChanged -= HandleCollectibleColor;
+    }
+    public IEnumerator BuildMapLevelAgain()
+    {
+        foreach (var kvp in blockPositions)
+        {
+            var blockType = kvp.Key;
+            var block = kvp.Value;
+            foreach (var pos in block)
+            {
+                blockTileMap.SetTileFlags(pos, TileFlags.None);
+                blockTileMap.SetColliderType(pos, Tile.ColliderType.Sprite);
+                var color = blockTileMap.GetColor(pos);
+                blockTileMap.SetColor(pos, new Color(color.r, color.g, color.b, 1f));
+            }
+        }
+        yield return StartCoroutine(BuildItemsCoroutine(currentLevel));
+        BuildPlayerStartPosition(currentLevel);
+        BuildGoal(currentLevel);
     }
     private void HandleCollectibleColor(List<string> colorIds)
     {
@@ -49,6 +69,7 @@ public class LevelBuilder : MonoBehaviour
     }
     public IEnumerator BuildMapAsync(LevelData level, Action<float> onProgress = null)
     {
+        currentLevel = level;
         ClearAllTileMaps();
         yield return StartCoroutine(BuildPlatformsCoroutine(level));
         onProgress?.Invoke(0.75f);
@@ -57,6 +78,8 @@ public class LevelBuilder : MonoBehaviour
         onProgress?.Invoke(0.9f);
         yield return StartCoroutine(BuildItemsCoroutine(level));
         BuildPlayerStartPosition(level);
+        BuildGoal(level);
+        onProgress?.Invoke(1f);
     }
     private void ClearAllTileMaps()
     {
@@ -99,8 +122,6 @@ public class LevelBuilder : MonoBehaviour
     {
         var loader = GameController.Instance.Loader;
         int counter = 0;
-
-        Debug.Log($"<color=#4a1bfd>level.blocks: {level.blocks.Length}</color>");
         foreach (var b in level.blocks)
         {
             var blockTile = loader.LoadedTilesDict[b.type];
@@ -145,9 +166,17 @@ public class LevelBuilder : MonoBehaviour
     }
     public void BuildPlayerStartPosition(LevelData level)
     {
-        var newY = level.playerStart.y - 4;
-        var startCell = new Vector3Int(level.playerStart.x, newY, 0);
+        var startCell = new Vector3Int(level.playerStart.x, -level.playerStart.y, 0);
         var worldPos = platformTileMap.GetCellCenterWorld(startCell);
+        Debug.Log($"<color=#2f4ee6>worldPos: {worldPos}</color>");
         OnPlayerStartPositionReady?.Invoke(worldPos);
+    }
+    private void BuildGoal(LevelData level)
+    {
+        var factory = GameController.Instance.Factory;
+        int newY = level.goal.y - 4;
+        Vector3Int cellPos = new Vector3Int(level.goal.x, newY, 0);
+        var newPos = platformTileMap.GetCellCenterWorld(cellPos);
+        var goal = factory.GetProduct("goal", newPos);
     }
 }

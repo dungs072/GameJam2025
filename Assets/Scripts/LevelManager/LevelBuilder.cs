@@ -99,8 +99,6 @@ public class LevelBuilder : MonoBehaviour
     {
         var loader = GameController.Instance.Loader;
         int counter = 0;
-
-        Debug.Log($"<color=#4a1bfd>level.blocks: {level.blocks.Length}</color>");
         foreach (var b in level.blocks)
         {
             var blockTile = loader.LoadedTilesDict[b.type];

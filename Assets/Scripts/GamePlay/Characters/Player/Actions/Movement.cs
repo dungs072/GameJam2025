@@ -81,11 +81,11 @@ public class Movement
     private void CheckBlockedHead()
     {
         RaycastHit2D hit = Physics2D.BoxCast(
-            playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 0.5f),
-            new Vector3(playerCollider.bounds.size.x - 1f, 0.1f, 0),
+            playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 2f),
+            new Vector3(playerCollider.bounds.size.x - 4f, 2f, 0),
             0f,
             Vector2.up,
-            0.4f,
+            1f,
             groundLayer
         );
         isBlockedHead = hit.collider != null;
@@ -135,7 +135,14 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        var raycastHit = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 0.4f), Vector2.down, 0.42f, groundLayer);
+        var raycastHit = Physics2D.BoxCast(
+            playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 2f),
+            new Vector3(playerCollider.bounds.size.x - 2f, 2f, 0),
+            0f,
+            Vector2.down,
+            1f,
+            groundLayer
+        );
         if (raycastHit.collider != null)
         {
             SnapToGround(raycastHit);
@@ -154,7 +161,7 @@ public class Movement
     }
     private void SnapToGround(RaycastHit2D hit)
     {
-        transform.position = new Vector3(transform.position.x, hit.point.y + playerCollider.bounds.extents.y - playerCollider.offset.y * transform.localScale.y + 0.01f, transform.position.z);
+        transform.position = new Vector3(transform.position.x, hit.point.y + playerCollider.bounds.extents.y - playerCollider.offset.y * transform.localScale.y, transform.position.z);
     }
 
 
@@ -195,6 +202,11 @@ public class Movement
         if (isBlockedHead && velocity.y > 0)
         {
             velocity.y = 0;
+        }
+
+        if (velocity.magnitude > PlayerConfig.MovementSettings.MAX_VELOCITY)
+        {
+            velocity = velocity.normalized * PlayerConfig.MovementSettings.MAX_VELOCITY;
         }
 
         if (isDashing)

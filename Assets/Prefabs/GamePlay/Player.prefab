@@ -61,8 +61,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 3725479561554473870}
   - {fileID: 8257050538028145712}
@@ -131,7 +131,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.21904087, y: 2.04977}
+  m_Offset: {x: 0.15509176, y: 1.7726572}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -141,7 +141,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 3.7421517, y: 7.7558227}
+  m_Size: {x: 2.6763334, y: 7.2015967}
   m_EdgeRadius: 0
 --- !u!114 &8714730026962750179
 MonoBehaviour:
@@ -170,7 +170,7 @@ MonoBehaviour:
   movement:
     groundLayer:
       serializedVersion: 2
-      m_Bits: 64
+      m_Bits: 320
     transform: {fileID: 8910086358057996089}
   throwAction:
     leftThrowPoint: {fileID: 612463557954623135}
@@ -273,7 +273,9 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 8c1ea8bcd1ead48958e90bebd8835d7a, type: 2}
+  - {fileID: 2100000, guid: 10bc9293f49a04510a8673ae0bd72ee9, type: 2}
+  - {fileID: 2100000, guid: b54a618478eea4ecc90581307f7c54b6, type: 2}
+  - {fileID: 2100000, guid: cdeb0d74becce4301bc1827cb71092dc, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -307,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d247ba06193faa74d9335f5481b2b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeletonDataAsset: {fileID: 11400000, guid: b82c77fd308f04dadb82019ac595f5bd, type: 2}
+  skeletonDataAsset: {fileID: 11400000, guid: d201c150c1f4f4a4fa0a813908618ad6, type: 2}
   initialSkinName: Black
   initialFlipX: 0
   initialFlipY: 0

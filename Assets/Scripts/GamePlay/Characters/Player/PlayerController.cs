@@ -22,7 +22,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     {
         movement.Init(inputHandler);
         playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
-
+        playerSkin.SetPlayerMovement(movement);
     }
     void OnDestroy()
     {
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     void Update()
     {
         movement.Update();
+        playerSkin.Update();
     }
     void OnDrawGizmos()
     {

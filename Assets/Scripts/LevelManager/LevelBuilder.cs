@@ -57,6 +57,7 @@ public class LevelBuilder : MonoBehaviour
         onProgress?.Invoke(0.9f);
         yield return StartCoroutine(BuildItemsCoroutine(level));
         BuildPlayerStartPosition(level);
+        BuildGoal(level);
     }
     private void ClearAllTileMaps()
     {
@@ -147,5 +148,13 @@ public class LevelBuilder : MonoBehaviour
         var startCell = new Vector3Int(level.playerStart.x, newY, 0);
         var worldPos = platformTileMap.GetCellCenterWorld(startCell);
         OnPlayerStartPositionReady?.Invoke(worldPos);
+    }
+    private void BuildGoal(LevelData level)
+    {
+        var factory = GameController.Instance.Factory;
+        int newY = level.goal.y - 4;
+        Vector3Int cellPos = new Vector3Int(level.goal.x, newY, 0);
+        var newPos = platformTileMap.GetCellCenterWorld(cellPos);
+        var goal = factory.GetProduct("goal", newPos);
     }
 }

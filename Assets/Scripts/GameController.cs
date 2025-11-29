@@ -74,6 +74,12 @@ public class GameController : MonoBehaviour
         playerController.transform.position = startPosition;
     }
 
+
+    public void HandleGameWin()
+    {
+        
+    }
+
     public void EnableInput()
     {
         eventSystem.enabled = true;

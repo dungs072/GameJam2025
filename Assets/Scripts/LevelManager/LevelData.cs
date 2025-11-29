@@ -17,6 +17,7 @@ public class LevelData
     public FilterData[] filters;
 
     public Position playerStart;
+    public Goal goal;
 }
 
 [Serializable]
@@ -59,6 +60,12 @@ public class FilterData
 
 [Serializable]
 public class Position
+{
+    public int x;
+    public int y;
+}
+[Serializable]
+public class Goal
 {
     public int x;
     public int y;

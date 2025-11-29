@@ -494,6 +494,11 @@ MonoBehaviour:
       m_SubObjectGUID: 
       m_SubObjectType: 
       m_EditorAssetChanged: 0
+    - m_AssetGUID: 9c1dbaf75f72ed445ac1647557358ff1
+      m_SubObjectName: 
+      m_SubObjectGUID: 
+      m_SubObjectType: 
+      m_EditorAssetChanged: 0
     tileReferences:
     - m_AssetGUID: 05bc643d1a431d8498d632200b6cd532
       m_SubObjectName: 

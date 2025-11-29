@@ -4,6 +4,7 @@ using UnityEngine.EventSystems;
 
 public class GameController : MonoBehaviour
 {
+    public static event Action<float> OnBootGame;
     [field: SerializeField] public BaseFactory Factory { get; private set; }
     [field: SerializeField] public GameLoader Loader { get; private set; }
     [Header("Data")]
@@ -39,6 +40,7 @@ public class GameController : MonoBehaviour
     private void Initialize()
     {
         Loader.LoadAllPrefabs();
+        OnBootGame?.Invoke(0f);
     }
     void OnDestroy()
     {
@@ -54,14 +56,20 @@ public class GameController : MonoBehaviour
 
     private void RegisterAllPrefabs()
     {
+        OnBootGame?.Invoke(0.2f);
         LevelManager.LoadLevelAsync(1);
     }
     private void RegisterLevel(LevelData level)
     {
-        StartCoroutine(levelBuilder.BuildMapAsync(level));
+        OnBootGame?.Invoke(0.5f);
+        StartCoroutine(levelBuilder.BuildMapAsync(level, progress =>
+        {
+            OnBootGame?.Invoke(progress);
+        }));
     }
     private void HandlePlayerStartPositionReady(Vector3 startPosition)
     {
+        OnBootGame?.Invoke(1f);
         playerController.gameObject.SetActive(true);
         playerController.transform.position = startPosition;
     }

@@ -16,11 +16,11 @@ public class LevelBuilder : MonoBehaviour
 
     void Awake()
     {
-        CollectibleColor.OnColorCollected += HandleCollectibleColor;
+        Inventory.OnInventoryItemsChanged += HandleCollectibleColor;
     }
     void OnDestroy()
     {
-        CollectibleColor.OnColorCollected -= HandleCollectibleColor;
+        Inventory.OnInventoryItemsChanged -= HandleCollectibleColor;
     }
     private void HandleCollectibleColor(List<string> colorIds)
     {
@@ -47,18 +47,16 @@ public class LevelBuilder : MonoBehaviour
             }
         }
     }
-    public IEnumerator BuildMapAsync(LevelData level)
+    public IEnumerator BuildMapAsync(LevelData level, Action<float> onProgress = null)
     {
         ClearAllTileMaps();
-        //DisableRenderAndPhysicComponents();
         yield return StartCoroutine(BuildPlatformsCoroutine(level));
-        Debug.Log("Platform build complete");
+        onProgress?.Invoke(0.75f);
 
         yield return StartCoroutine(BuildBlocksCoroutine(level));
-        Debug.Log("Block build complete");
+        onProgress?.Invoke(0.9f);
         yield return StartCoroutine(BuildItemsCoroutine(level));
         BuildPlayerStartPosition(level);
-        Debug.Log("Level build complete");
     }
     private void ClearAllTileMaps()
     {
@@ -71,7 +69,6 @@ public class LevelBuilder : MonoBehaviour
     {
         var loader = GameController.Instance.Loader;
         int counter = 0;
-        int mainCount = 0;
 
         foreach (var p in level.platforms)
         {
@@ -87,13 +84,13 @@ public class LevelBuilder : MonoBehaviour
             {
                 for (int iy = startY; iy > endY; iy--)
                 {
-                    mainCount++;
-                    Debug.Log($"<color=#bc816d>mainCount: {mainCount}</color>");
                     Vector3Int pos = new Vector3Int(ix, iy, 0);
                     platformTileMap.SetTile(pos, platformTile);
 
                     if (++counter % BATCH_SIZE == 0)
+                    {
                         yield return null;
+                    }
                 }
             }
         }
@@ -137,12 +134,11 @@ public class LevelBuilder : MonoBehaviour
 
         foreach (var itemData in level.items)
         {
-            var item = factory.GetProduct(itemData.type);
             int startY = -itemData.y;
             int newY = startY;
             Vector3Int cellPos = new Vector3Int(itemData.x, newY, 0);
-            item.transform.position = platformTileMap.GetCellCenterWorld(cellPos);
-
+            var newPos = platformTileMap.GetCellCenterWorld(cellPos);
+            var item = factory.GetProduct(itemData.type, newPos);
             if (++counter % BATCH_SIZE == 0)
                 yield return null;
         }

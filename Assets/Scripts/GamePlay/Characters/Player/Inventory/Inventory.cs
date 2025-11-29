@@ -9,8 +9,8 @@ using UnityEngine;
 public class Inventory
 {
     public static event Action<string, int> OnInventoryChanged;
+    public static event Action<List<string>> OnInventoryItemsChanged;
     public event Action<string, int> OnItemRemoved;
-    public IReadOnlyDictionary<string, int> Items => items;
     private Dictionary<string, int> items = new();
     private int maxSize = 100;
 
@@ -69,8 +69,6 @@ public class Inventory
 
     public bool RemoveItem(string productId, int amount)
     {
-        Debug.Log($"<color=#b4046a>productId: {productId}, {amount}</color>");
-
         if (items.ContainsKey(productId))
         {
             var quantity = items[productId];
@@ -91,17 +89,6 @@ public class Inventory
             }
         }
         return false;
-    }
-    public void RemoveUnmatchedLeftItems(string productId)
-    {
-
-        foreach (var key in items.Keys.Where(k => k != productId).ToList())
-        {
-            var value = items[key];
-            items.Remove(key);
-            NotifyInventoryChanged(key);
-            OnItemRemoved?.Invoke(key, value);
-        }
     }
     public void RemoveUnMatchedLeftItems(List<string> productIds)
     {
@@ -130,8 +117,9 @@ public class Inventory
     private void NotifyInventoryChanged(string productId)
     {
         int newAmount = GetItemCount(productId);
-        Debug.Log($"<color=#78ee15>newAmount: {newAmount}</color>");
         OnInventoryChanged?.Invoke(productId, newAmount);
+        var allItemIDs = GetAllItemIDs();
+        OnInventoryItemsChanged?.Invoke(allItemIDs);
     }
 
 }

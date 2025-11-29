@@ -16,7 +16,6 @@ public class GameScreen : BaseScreen
     {
         if (GameController.Instance == null) return;
         var gameLoader = GameController.Instance.Loader;
-        Debug.Log($"<color=#562a33>productId: {productId}</color>");
         if (gameLoader.LoadedObjectsDict.TryGetValue(productId, out var prop))
         {
             inventoryUI.AddItem(productId, prop.productData.Icon, newAmount);

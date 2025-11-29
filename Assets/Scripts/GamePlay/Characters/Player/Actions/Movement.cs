@@ -23,6 +23,7 @@ public class Movement
     private float dashTimer = 0f;
     private Vector2 dashDir;
     private BlockState blockState = BlockState.None;
+    private bool isBlockedHead = false;
 
     private bool isLookingRight = true;
 
@@ -53,6 +54,8 @@ public class Movement
         Move(inputHandler.MoveValue);
         TryUpdateGravity();
         UpdateBlockMove();
+        CheckBlockedHead();
+
         if (inputHandler.IsJumping)
         {
             Jump();
@@ -74,6 +77,18 @@ public class Movement
         var isLeft = CheckWall(Vector2.left);
         var isRight = CheckWall(Vector2.right);
         SetBlockState(isLeft ? BlockState.Left : isRight ? BlockState.Right : BlockState.None);
+    }
+    private void CheckBlockedHead()
+    {
+        RaycastHit2D hit = Physics2D.BoxCast(
+            playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 0.5f),
+            new Vector3(playerCollider.bounds.size.x - 1f, 0.1f, 0),
+            0f,
+            Vector2.up,
+            0.4f,
+            groundLayer
+        );
+        isBlockedHead = hit.collider != null;
     }
     bool CheckWall(Vector2 direction)
     {
@@ -175,6 +190,11 @@ public class Movement
         else if (blockState == BlockState.Right && velocity.x > 0)
         {
             velocity.x = 0;
+        }
+
+        if (isBlockedHead && velocity.y > 0)
+        {
+            velocity.y = 0;
         }
 
         if (isDashing)

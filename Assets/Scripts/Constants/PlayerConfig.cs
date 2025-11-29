@@ -9,9 +9,9 @@ public class PlayerConfig
     public class MovementSettings
     {
         public const float FRICTION = 100f;
-        public const float MOVE_SPEED = 10f;
+        public const float MOVE_SPEED = 33f;
         public const float RUN_SPEED_MULTIPLIER = 2.5f;
-        public const float JUMP_HEIGHT = 5;
+        public const float JUMP_HEIGHT = 12;
 
         public const float DASH_DURATION = 0.2f;
         public const float DASH_DISTANCE = 7f;
@@ -60,5 +60,13 @@ public class PlayerConfig
 
             return BLACK;
         }
+    }
+
+    public class AnimationNames
+    {
+        public const string IDLE = "Idle";
+        public const string WALK = "Walk";
+        public const string JUMP_UP = "Jump up";
+        public const string JUMP_DOWN = "Jump down";
     }
 }

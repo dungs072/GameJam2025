@@ -42,6 +42,30 @@ public class LevelBuilder : MonoBehaviour
         BuildPlayerStartPosition(currentLevel);
         BuildGoal(currentLevel);
     }
+
+    private bool IsColorPassable(List<string> playerColorIds, string blockColor)
+    {
+        switch (blockColor)
+        {
+            case ProductID.BLUE:
+                return playerColorIds.Contains(ProductID.BLUE);
+            case ProductID.GREEN:
+                return playerColorIds.Contains(ProductID.GREEN);
+            case ProductID.RED:
+                return playerColorIds.Contains(ProductID.RED);
+            case ProductID.CYAN:
+                return playerColorIds.Contains(ProductID.BLUE) && playerColorIds.Contains(ProductID.GREEN);
+            case ProductID.YELLOW:
+                return playerColorIds.Contains(ProductID.RED) && playerColorIds.Contains(ProductID.GREEN);
+            case ProductID.PURPLE:
+                return playerColorIds.Contains(ProductID.BLUE) && playerColorIds.Contains(ProductID.RED);
+            case ProductID.WHITE:
+                return playerColorIds.Contains(ProductID.BLUE) && playerColorIds.Contains(ProductID.RED) && playerColorIds.Contains(ProductID.GREEN);
+            default:
+                return false;
+        }
+    }
+
     private void HandleCollectibleColor(List<string> colorIds)
     {
         if (!blockTileMap) return;
@@ -49,13 +73,13 @@ public class LevelBuilder : MonoBehaviour
         {
             var blockType = kvp.Key;
             var block = kvp.Value;
-            var isSameColor = colorIds.Contains(blockType);
+            var isPassable = IsColorPassable(colorIds, kvp.Key);
             foreach (var pos in block)
             {
                 var colliderType = Tile.ColliderType.Sprite;
                 var color = blockTileMap.GetColor(pos);
                 var alpha = 1f;
-                if (isSameColor)
+                if (isPassable)
                 {
                     colliderType = Tile.ColliderType.None;
                     alpha = 0.25f;

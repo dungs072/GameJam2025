@@ -630,8 +630,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inventoryBlocks:
   - {fileID: 8021684710344892697}
-  - {fileID: 4969851442402456281}
   - {fileID: 3985343125576728085}
+  - {fileID: 4969851442402456281}
 --- !u!114 &7220074254671026809
 MonoBehaviour:
   m_ObjectHideFlags: 0

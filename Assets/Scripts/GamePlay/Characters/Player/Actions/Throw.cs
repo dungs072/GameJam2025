@@ -21,8 +21,8 @@ public class Throw
         string itemID = throwType switch
         {
             ThrowType.THROW_ONE => "red",
-            ThrowType.THROW_TWO => "blue",
-            ThrowType.THROW_THREE => "green",
+            ThrowType.THROW_TWO => "green",
+            ThrowType.THROW_THREE => "blue",
             _ => null
         };
         if (itemID == null) return;

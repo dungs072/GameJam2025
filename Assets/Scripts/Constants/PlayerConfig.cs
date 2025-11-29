@@ -11,7 +11,7 @@ public class PlayerConfig
         public const float FRICTION = 100f;
         public const float MOVE_SPEED = 33f;
         public const float RUN_SPEED_MULTIPLIER = 2.5f;
-        public const float JUMP_HEIGHT = 16;
+        public const float JUMP_HEIGHT = 23;
 
         public const float DASH_DURATION = 0.2f;
         public const float DASH_DISTANCE = 7f;

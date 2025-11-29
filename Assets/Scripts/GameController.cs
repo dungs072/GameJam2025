@@ -69,15 +69,25 @@ public class GameController : MonoBehaviour
     }
     private void HandlePlayerStartPositionReady(Vector3 startPosition)
     {
-        OnBootGame?.Invoke(1f);
         playerController.gameObject.SetActive(true);
         playerController.transform.position = startPosition;
+        
     }
 
 
     public void HandleGameWin()
     {
-        
+        OnInputStateChanged?.Invoke(false);
+        StartCoroutine(UIManager.Instance.CloseScreenAsync<GameScreen>());
+        StartCoroutine(UIManager.Instance.OpenScreenAsync<WinScreen>());
+    }
+
+    public void HandlePlayGameAgain()
+    {
+        Factory.ClearAllProducts();
+        StartCoroutine(levelBuilder.BuildMapLevelAgain());
+        StartCoroutine(UIManager.Instance.CloseScreenAsync<WinScreen>());
+        StartCoroutine(UIManager.Instance.OpenScreenAsync<GameScreen>());
     }
 
     public void EnableInput()

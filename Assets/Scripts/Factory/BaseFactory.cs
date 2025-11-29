@@ -77,4 +77,16 @@ public class BaseFactory : MonoBehaviour
         productCache[productId] = list;
         return newProduct;
     }
+
+    public void ClearAllProducts()
+    {
+        foreach (var kvp in productCache)
+        {
+            foreach (var product in kvp.Value)
+            {
+                product.SetActive(false);
+            }
+        }
+        productCache.Clear();
+    }
 }

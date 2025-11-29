@@ -1,6 +1,4 @@
 using System;
-using NUnit.Framework;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BlockState
@@ -15,6 +13,7 @@ public class Movement
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform transform;
+    [SerializeField] private Collider2D playerCollider;
 
     private InputHandler inputHandler;
     private bool isGrounded = true;
@@ -78,18 +77,33 @@ public class Movement
     }
     bool CheckWall(Vector2 direction)
     {
-        Vector2 boxSize = new Vector2(0.5f, 1f);
-        float checkDistance = 0.5f;
-        RaycastHit2D hit = Physics2D.BoxCast(
-                transform.position,
-                boxSize,
+        if (direction == Vector2.left && isLookingRight) return false;
+        if (direction == Vector2.right && !isLookingRight) return false;
+        if (direction == Vector2.left)
+        {
+            RaycastHit2D hit = Physics2D.BoxCast(
+                playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.up * 0.1f + Vector3.right * 0.5f,
+                new Vector3(0.2f, playerCollider.bounds.size.y - 0.2f, 0),
                 0f,
                 direction,
-                checkDistance,
+                0.4f,
                 groundLayer
             );
+            return hit.collider != null;
+        } else if (direction == Vector2.right)
+        {
+            RaycastHit2D hit = Physics2D.BoxCast(
+                playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.up * 0.1f + Vector3.left * 0.5f,
+                new Vector3(0.2f, playerCollider.bounds.size.y - 0.2f, 0),
+                0f,
+                direction,
+                0.4f,
+                groundLayer
+            );
+            return hit.collider != null;
+        }
 
-        return hit.collider != null;
+        return false;
     }
     private void Move(Vector2 moveInput)
     {
@@ -106,11 +120,11 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        var raycastHit = Physics2D.Raycast(transform.position, Vector2.down, 1.5f, groundLayer);
+        var raycastHit = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 0.4f), Vector2.down, 0.42f, groundLayer);
         if (raycastHit.collider != null)
         {
+            SnapToGround(raycastHit);
             SetGroundedState(true);
-            //SnapToGround(raycastHit);
             if (velocity.y <= 0)
             {
                 velocity = new Vector3(velocity.x, 0, 0);
@@ -125,8 +139,7 @@ public class Movement
     }
     private void SnapToGround(RaycastHit2D hit)
     {
-        var groundY = hit.normal.y + hit.point.y;
-        transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
+        transform.position = new Vector3(transform.position.x, hit.point.y + playerCollider.bounds.extents.y - playerCollider.offset.y * transform.localScale.y + 0.01f, transform.position.z);
     }
 
 

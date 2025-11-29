@@ -23,16 +23,10 @@ public class PlayerController : MonoBehaviour, ICharacter
         movement.Init(inputHandler);
         playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
         playerSkin.SetPlayerMovement(movement);
-        LevelManager.OnPlayerStartPositionReady += HandlePlayerStartPositionReady;
     }
     void OnDestroy()
     {
         inventory.OnItemRemoved -= HandleItemRemoved;
-        LevelManager.OnPlayerStartPositionReady -= HandlePlayerStartPositionReady;
-    }
-    private void HandlePlayerStartPositionReady(Vector3 startPosition)
-    {
-        transform.position = startPosition;
     }
     private void HandleItemRemoved(string itemID, int amount)
     {

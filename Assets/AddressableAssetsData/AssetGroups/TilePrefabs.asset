@@ -120,6 +120,11 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 6d46258831d06694f86dbd9abfbaaca0
+    m_Address: Assets/Data/TileData/Blocks/Block2 3.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 72a981913eae62841b96dacb00bc641f
     m_Address: Assets/Data/TileData/Platforms/Block1 39.asset
     m_ReadOnly: 0

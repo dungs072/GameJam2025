@@ -47,18 +47,16 @@ public class LevelBuilder : MonoBehaviour
             }
         }
     }
-    public IEnumerator BuildMapAsync(LevelData level)
+    public IEnumerator BuildMapAsync(LevelData level, Action<float> onProgress = null)
     {
         ClearAllTileMaps();
-        //DisableRenderAndPhysicComponents();
         yield return StartCoroutine(BuildPlatformsCoroutine(level));
-        Debug.Log("Platform build complete");
+        onProgress?.Invoke(0.75f);
 
         yield return StartCoroutine(BuildBlocksCoroutine(level));
-        Debug.Log("Block build complete");
+        onProgress?.Invoke(0.9f);
         yield return StartCoroutine(BuildItemsCoroutine(level));
         BuildPlayerStartPosition(level);
-        Debug.Log("Level build complete");
     }
     private void ClearAllTileMaps()
     {
@@ -71,7 +69,6 @@ public class LevelBuilder : MonoBehaviour
     {
         var loader = GameController.Instance.Loader;
         int counter = 0;
-        int mainCount = 0;
 
         foreach (var p in level.platforms)
         {
@@ -87,13 +84,13 @@ public class LevelBuilder : MonoBehaviour
             {
                 for (int iy = startY; iy > endY; iy--)
                 {
-                    mainCount++;
-                    Debug.Log($"<color=#bc816d>mainCount: {mainCount}</color>");
                     Vector3Int pos = new Vector3Int(ix, iy, 0);
                     platformTileMap.SetTile(pos, platformTile);
 
                     if (++counter % BATCH_SIZE == 0)
+                    {
                         yield return null;
+                    }
                 }
             }
         }

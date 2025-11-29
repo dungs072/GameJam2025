@@ -21,7 +21,8 @@ public class DashboardScreen : BaseScreen
 
         GameController.Instance.DisableInput();
         StartCoroutine(UIManager.Instance.CloseScreenAsync<DashboardScreen>());
-        StartCoroutine(UIManager.Instance.OpenScreenAsync<GameScreen>());
+        StartCoroutine(UIManager.Instance.OpenScreenAsync<IntroScreen>());
+        // StartCoroutine(UIManager.Instance.OpenScreenAsync<GameScreen>());
         GameController.Instance.EnableInput();
     }
 

@@ -168,7 +168,6 @@ public class LevelBuilder : MonoBehaviour
     {
         var startCell = new Vector3Int(level.playerStart.x, -level.playerStart.y, 0);
         var worldPos = platformTileMap.GetCellCenterWorld(startCell);
-        Debug.Log($"<color=#2f4ee6>worldPos: {worldPos}</color>");
         OnPlayerStartPositionReady?.Invoke(worldPos);
     }
     private void BuildGoal(LevelData level)

@@ -1,20 +1,19 @@
 using BaseEngine;
+using DG.Tweening;
 using UnityEngine;
 
 public class DashboardScreen : BaseScreen
 {
     [SerializeField] private MagicButton startButton;
-    [SerializeField] private MagicButton exitButton;
 
     private void Start()
     {
         startButton.AddListener(OnStartButtonClicked);
-        exitButton.AddListener(OnExitButtonClicked);
+        PlayStartButtonAnim();
     }
     void OnDestroy()
     {
         startButton.RemoveListener(OnStartButtonClicked);
-        exitButton.RemoveListener(OnExitButtonClicked);
     }
 
     private void OnStartButtonClicked()
@@ -25,8 +24,12 @@ public class DashboardScreen : BaseScreen
         StartCoroutine(UIManager.Instance.OpenScreenAsync<GameScreen>());
         GameController.Instance.EnableInput();
     }
-    private void OnExitButtonClicked()
+
+    private void PlayStartButtonAnim()
     {
-        Application.Quit();
+        var img = startButton.GetComponent<UnityEngine.UI.Image>();
+        img.DOFade(0.2f, 0.5f)
+           .SetLoops(-1, LoopType.Yoyo);
+
     }
 }

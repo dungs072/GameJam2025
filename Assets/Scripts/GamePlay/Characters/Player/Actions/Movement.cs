@@ -80,15 +80,11 @@ public class Movement
     }
     private void CheckBlockedHead()
     {
-        RaycastHit2D hit = Physics2D.BoxCast(
-            playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 2f),
-            new Vector3(playerCollider.bounds.size.x - 4f, 2f, 0),
-            0f,
-            Vector2.up,
-            1f,
-            groundLayer
-        );
-        isBlockedHead = hit.collider != null;
+        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f), Vector2.up, 1f, groundLayer);
+        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.up, 1f, groundLayer);
+        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.up, 1f, groundLayer);
+
+        isBlockedHead = hit1.collider != null || hit2.collider != null || hit3.collider != null;
     }
     bool CheckWall(Vector2 direction)
     {
@@ -96,26 +92,16 @@ public class Movement
         if (direction == Vector2.right && !isLookingRight) return false;
         if (direction == Vector2.left)
         {
-            RaycastHit2D hit = Physics2D.BoxCast(
-                playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.up * 0.1f + Vector3.right * 0.5f,
-                new Vector3(0.2f, playerCollider.bounds.size.y - 0.2f, 0),
-                0f,
-                direction,
-                0.4f,
-                groundLayer
-            );
-            return hit.collider != null;
+            var hit1 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.up + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            var hit3 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.down + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            return hit1.collider != null || hit2.collider != null || hit3.collider != null;
         } else if (direction == Vector2.right)
         {
-            RaycastHit2D hit = Physics2D.BoxCast(
-                playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.up * 0.1f + Vector3.left * 0.5f,
-                new Vector3(0.2f, playerCollider.bounds.size.y - 0.2f, 0),
-                0f,
-                direction,
-                0.4f,
-                groundLayer
-            );
-            return hit.collider != null;
+            var hit1 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.up + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            var hit3 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.down + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            return hit1.collider != null || hit2.collider != null || hit3.collider != null;
         }
 
         return false;
@@ -135,14 +121,14 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        var raycastHit = Physics2D.BoxCast(
-            playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 2f),
-            new Vector3(playerCollider.bounds.size.x - 2f, 2f, 0),
-            0f,
-            Vector2.down,
-            1f,
-            groundLayer
-        );
+        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f), Vector2.down, 1.01f, groundLayer);
+        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
+        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
+
+        var raycastHit = hit1.collider != null ? hit1 :
+                         hit2.collider != null ? hit2 :
+                         hit3;
+
         if (raycastHit.collider != null)
         {
             SnapToGround(raycastHit);

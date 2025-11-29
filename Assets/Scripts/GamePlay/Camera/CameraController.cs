@@ -13,19 +13,20 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         thisCamera = GetComponent<Camera>();
+        thisCamera.orthographicSize = offset.z;
     }
 
     void LateUpdate()
     {
         Vector3 desiredPosition = target.position + offset;
         Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
-        transform.position = smoothedPosition;
+        transform.position = new Vector3(smoothedPosition.x, smoothedPosition.y, transform.position.z);
         if ((desiredPosition - transform.position).magnitude < MathConfig.CUSTOM_EPSILON)
         {
-            transform.position = desiredPosition;
+            transform.position = new Vector3(desiredPosition.x, desiredPosition.y, transform.position.z);
         }
 
-        ConstrainCameraPositionInBounds();
+        //ConstrainCameraPositionInBounds();
     }
 
     void ConstrainCameraPositionInBounds()

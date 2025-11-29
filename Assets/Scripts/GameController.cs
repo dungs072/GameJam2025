@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour
     [field: SerializeField] public ColorRuler ColorRuler { get; private set; }
     [Header("Level manager")]
     [field: SerializeField] public LevelManager LevelManager { get; private set; } = new();
+    [SerializeField] private LevelBuilder levelBuilder;
+    [Header("Player")]
+    [SerializeField] private PlayerController playerController;
     [Header("Input")]
     [SerializeField] private EventSystem eventSystem;
     public static event Action<bool> OnInputStateChanged;
@@ -30,6 +33,8 @@ public class GameController : MonoBehaviour
         Initialize();
         GameLoader.OnPropPrefabsLoaded += RegisterProduct;
         GameLoader.OnAllPrefabsLoaded += RegisterAllPrefabs;
+        LevelManager.OnLevelLoaded += RegisterLevel;
+        LevelBuilder.OnPlayerStartPositionReady += HandlePlayerStartPositionReady;
     }
     private void Initialize()
     {
@@ -39,6 +44,8 @@ public class GameController : MonoBehaviour
     {
         GameLoader.OnPropPrefabsLoaded -= RegisterProduct;
         GameLoader.OnAllPrefabsLoaded -= RegisterAllPrefabs;
+        LevelManager.OnLevelLoaded -= RegisterLevel;
+        LevelBuilder.OnPlayerStartPositionReady -= HandlePlayerStartPositionReady;
     }
     private void RegisterProduct(string id, Prop product)
     {
@@ -47,7 +54,16 @@ public class GameController : MonoBehaviour
 
     private void RegisterAllPrefabs()
     {
-        LevelManager.LoadLevel(1);
+        LevelManager.LoadLevelAsync(1);
+    }
+    private void RegisterLevel(LevelData level)
+    {
+        StartCoroutine(levelBuilder.BuildMapAsync(level));
+    }
+    private void HandlePlayerStartPositionReady(Vector3 startPosition)
+    {
+        playerController.gameObject.SetActive(true);
+        playerController.transform.position = startPosition;
     }
 
     public void EnableInput()

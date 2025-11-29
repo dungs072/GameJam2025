@@ -1260,6 +1260,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 8695541547203540538}
     m_Modifications:
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.b
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23921569
+      objectReference: {fileID: 0}
     - target: {fileID: 5386428560644883002, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_Name
       value: ProgressBar
@@ -1330,7 +1342,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1373,6 +1385,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7054017252536517058}
     m_Modifications:
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.b
+      value: 0.17740583
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81761
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23890235
+      objectReference: {fileID: 0}
     - target: {fileID: 5386428560644883002, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_Name
       value: ProgressBar
@@ -1443,7 +1467,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1486,6 +1510,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3522986368881677776}
     m_Modifications:
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.b
+      value: 0.18039216
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.g
+      value: 0.81960785
+      objectReference: {fileID: 0}
+    - target: {fileID: 2714146325377309742, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
+      propertyPath: m_Color.r
+      value: 0.23921569
+      objectReference: {fileID: 0}
     - target: {fileID: 5386428560644883002, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_Name
       value: ProgressBar
@@ -1556,7 +1592,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -50
+      value: -65
       objectReference: {fileID: 0}
     - target: {fileID: 6473445011971054037, guid: 6dd95eb4393754e42afcb9542e130ca5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

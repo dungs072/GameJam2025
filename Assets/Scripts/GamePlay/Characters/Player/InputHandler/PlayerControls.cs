@@ -53,6 +53,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw1"",
+                    ""type"": ""Button"",
+                    ""id"": ""26eba8b7-24be-4ec4-862b-e050a5683f2e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw2"",
+                    ""type"": ""Button"",
+                    ""id"": ""97655206-32a7-4870-a801-d2bbf534824e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw3"",
+                    ""type"": ""Button"",
+                    ""id"": ""87dbc975-ddc3-4c42-acc6-0a27ac4abb3f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -187,6 +214,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Run"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""67b64e4e-93d5-4d29-9aba-b75207c065f1"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Throw1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a5274084-315d-4c4e-9eb0-38fb3528f31f"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Throw2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a915e5e6-555f-4fad-8857-db208c227980"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Throw3"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -215,6 +275,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
         m_Player_Run = m_Player.FindAction("Run", throwIfNotFound: true);
+        m_Player_Throw1 = m_Player.FindAction("Throw1", throwIfNotFound: true);
+        m_Player_Throw2 = m_Player.FindAction("Throw2", throwIfNotFound: true);
+        m_Player_Throw3 = m_Player.FindAction("Throw3", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -284,6 +347,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Jump;
     private readonly InputAction m_Player_Run;
+    private readonly InputAction m_Player_Throw1;
+    private readonly InputAction m_Player_Throw2;
+    private readonly InputAction m_Player_Throw3;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -291,6 +357,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Jump => m_Wrapper.m_Player_Jump;
         public InputAction @Run => m_Wrapper.m_Player_Run;
+        public InputAction @Throw1 => m_Wrapper.m_Player_Throw1;
+        public InputAction @Throw2 => m_Wrapper.m_Player_Throw2;
+        public InputAction @Throw3 => m_Wrapper.m_Player_Throw3;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -309,6 +378,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
+            @Throw1.started += instance.OnThrow1;
+            @Throw1.performed += instance.OnThrow1;
+            @Throw1.canceled += instance.OnThrow1;
+            @Throw2.started += instance.OnThrow2;
+            @Throw2.performed += instance.OnThrow2;
+            @Throw2.canceled += instance.OnThrow2;
+            @Throw3.started += instance.OnThrow3;
+            @Throw3.performed += instance.OnThrow3;
+            @Throw3.canceled += instance.OnThrow3;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -322,6 +400,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
+            @Throw1.started -= instance.OnThrow1;
+            @Throw1.performed -= instance.OnThrow1;
+            @Throw1.canceled -= instance.OnThrow1;
+            @Throw2.started -= instance.OnThrow2;
+            @Throw2.performed -= instance.OnThrow2;
+            @Throw2.canceled -= instance.OnThrow2;
+            @Throw3.started -= instance.OnThrow3;
+            @Throw3.performed -= instance.OnThrow3;
+            @Throw3.canceled -= instance.OnThrow3;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -353,5 +440,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
+        void OnThrow1(InputAction.CallbackContext context);
+        void OnThrow2(InputAction.CallbackContext context);
+        void OnThrow3(InputAction.CallbackContext context);
     }
 }

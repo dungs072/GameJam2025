@@ -16,11 +16,11 @@ public class LevelBuilder : MonoBehaviour
 
     void Awake()
     {
-        CollectibleColor.OnColorCollected += HandleCollectibleColor;
+        Inventory.OnInventoryItemsChanged += HandleCollectibleColor;
     }
     void OnDestroy()
     {
-        CollectibleColor.OnColorCollected -= HandleCollectibleColor;
+        Inventory.OnInventoryItemsChanged -= HandleCollectibleColor;
     }
     private void HandleCollectibleColor(List<string> colorIds)
     {
@@ -137,12 +137,11 @@ public class LevelBuilder : MonoBehaviour
 
         foreach (var itemData in level.items)
         {
-            var item = factory.GetProduct(itemData.type);
             int startY = -itemData.y;
             int newY = startY;
             Vector3Int cellPos = new Vector3Int(itemData.x, newY, 0);
-            item.transform.position = platformTileMap.GetCellCenterWorld(cellPos);
-
+            var newPos = platformTileMap.GetCellCenterWorld(cellPos);
+            var item = factory.GetProduct(itemData.type, newPos);
             if (++counter % BATCH_SIZE == 0)
                 yield return null;
         }

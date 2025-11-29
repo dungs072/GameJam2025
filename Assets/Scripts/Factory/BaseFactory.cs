@@ -12,7 +12,7 @@ public class BaseFactory : MonoBehaviour
     private void Awake()
     {
         InitializeProductDictionary();
-    
+
     }
 
 
@@ -36,7 +36,7 @@ public class BaseFactory : MonoBehaviour
             Debug.LogWarning($"Product with Name {product.name} is already registered.");
         }
     }
-    public GameObject GetProduct(string productId)
+    public GameObject GetProduct(string productId, Vector3 position)
     {
         if (!IsValidProductId(productId))
         {
@@ -61,6 +61,7 @@ public class BaseFactory : MonoBehaviour
                 selectedProduct = unusedProduct;
             }
         }
+        selectedProduct.transform.position = position;
         selectedProduct.SetActive(true);
         return selectedProduct;
     }

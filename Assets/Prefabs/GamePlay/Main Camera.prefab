@@ -150,6 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88ec4eabe7c599c4fb691e8c9290d805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottomCameraLimit: {fileID: 0}
   target: {fileID: 0}
-  offset: {x: 0, y: 0, z: 0}
+  offset: {x: 0, y: 0, z: 15}
   smoothSpeed: 0.125

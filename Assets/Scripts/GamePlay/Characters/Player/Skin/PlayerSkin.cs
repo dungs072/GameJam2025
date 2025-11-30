@@ -25,6 +25,10 @@ public class PlayerSkin
 
     public void Update()
     {
+        if (movement.IsGrounded && movement.IsWalking)
+        {
+            walkRemainTime = PlayerConfig.MovementSettings.WALK_AT_LEAST_DURATION;
+        }
         if (walkRemainTime > 0f)
         {
             walkRemainTime -= Time.deltaTime;
@@ -32,11 +36,11 @@ public class PlayerSkin
         }
 
         skeletonAnimation.skeleton.ScaleX = movement.IsLookingRight ? 1 : -1;
+
         if (movement.IsGrounded && movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.WALK)
         {
             var entry = skeletonAnimation.AnimationState.SetAnimation(0, PlayerConfig.AnimationNames.WALK, true);
             entry.TimeScale = 2.5f;
-            walkRemainTime = PlayerConfig.MovementSettings.WALK_AT_LEAST_DURATION;
         }
 
         if (movement.IsGrounded && !movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.IDLE)

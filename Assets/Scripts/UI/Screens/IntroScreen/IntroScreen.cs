@@ -20,6 +20,7 @@ public class IntroScreen : BaseScreen
         Tween fadeTween = CanvasGroup.DOFade(1f, 0.5f);
         fadeTween.Play();
         yield return null;
+        AudioManager.Instance.PlayGamePlaySong();
         PlayIntroAnim();
     }
     public void PlayIntroAnim()

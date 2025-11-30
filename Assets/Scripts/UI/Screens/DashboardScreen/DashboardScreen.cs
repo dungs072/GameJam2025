@@ -9,6 +9,7 @@ public class DashboardScreen : BaseScreen
     private void Start()
     {
         startButton.AddListener(OnStartButtonClicked);
+        AudioManager.Instance.PlayMainMenuSong();
         PlayStartButtonAnim();
     }
     void OnDestroy()
@@ -18,7 +19,7 @@ public class DashboardScreen : BaseScreen
 
     private void OnStartButtonClicked()
     {
-
+        AudioManager.Instance.PlayStartButtonSfx();
         GameController.Instance.DisableInput();
         StartCoroutine(UIManager.Instance.CloseScreenAsync<DashboardScreen>());
         StartCoroutine(UIManager.Instance.OpenScreenAsync<IntroScreen>());

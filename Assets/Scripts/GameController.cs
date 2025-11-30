@@ -41,6 +41,8 @@ public class GameController : MonoBehaviour
     {
         Loader.LoadAllPrefabs();
         OnBootGame?.Invoke(0f);
+        // Disable player controller at the beginning for dropping fps while loading level
+        playerController.gameObject.SetActive(false);
     }
     void OnDestroy()
     {
@@ -71,7 +73,7 @@ public class GameController : MonoBehaviour
     {
         playerController.gameObject.SetActive(true);
         playerController.transform.position = startPosition;
-        
+
     }
 
 

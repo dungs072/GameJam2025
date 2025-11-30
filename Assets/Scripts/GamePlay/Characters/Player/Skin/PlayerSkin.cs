@@ -25,15 +25,6 @@ public class PlayerSkin
 
     public void Update()
     {
-        if (movement.IsGrounded && movement.IsWalking)
-        {
-            walkRemainTime = PlayerConfig.MovementSettings.WALK_AT_LEAST_DURATION;
-        }
-        if (walkRemainTime > 0f)
-        {
-            walkRemainTime -= Time.deltaTime;
-            if (walkRemainTime < 0f) walkRemainTime = 0f;
-        }
 
         skeletonAnimation.skeleton.ScaleX = movement.IsLookingRight ? 1 : -1;
 

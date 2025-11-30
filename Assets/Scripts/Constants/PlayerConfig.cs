@@ -13,6 +13,7 @@ public class PlayerConfig
         public const float RUN_SPEED_MULTIPLIER = 2.5f;
         public const float JUMP_HEIGHT = 23;
         public const float MAX_VELOCITY = 60f;
+        public const float WALK_AT_LEAST_DURATION = 0.5f;
 
         public const float DASH_DURATION = 0.2f;
         public const float DASH_DISTANCE = 7f;

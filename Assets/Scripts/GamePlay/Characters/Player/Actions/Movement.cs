@@ -33,9 +33,8 @@ public class Movement
     public bool IsGrounded => isGrounded;
     public bool IsJumpingUp => velocity.y > 0;
     public bool IsLookingRight => isLookingRight;
-    public bool IsWalking => velocity.x != 0;
 
-    
+    public bool IsWalking => isGrounded && Mathf.Abs(inputHandler.MoveValue.x) > 0.01f && !isDashing;
 
 
     //! use for optimization gravity check
@@ -99,7 +98,8 @@ public class Movement
             var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
             var hit3 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.down + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
             return hit1.collider != null || hit2.collider != null || hit3.collider != null;
-        } else if (direction == Vector2.right)
+        }
+        else if (direction == Vector2.right)
         {
             var hit1 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.up + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
             var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
@@ -147,7 +147,7 @@ public class Movement
                 SnapToGround(raycastHit);
                 SetGroundedState(true);
             }
-            
+
             if (velocity.y <= 0)
             {
                 velocity = new Vector3(velocity.x, 0, 0);

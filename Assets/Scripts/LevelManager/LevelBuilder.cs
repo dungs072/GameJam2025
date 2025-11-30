@@ -96,7 +96,6 @@ public class LevelBuilder : MonoBehaviour
         currentLevel = level;
         ClearAllTileMaps();
         yield return StartCoroutine(BuildPlatformsCoroutine(level));
-        yield return platformTileMap.GetComponent<TilemapCollider2D>().compositeOperation = Collider2D.CompositeOperation.Merge;
         onProgress?.Invoke(0.75f);
 
         yield return StartCoroutine(BuildBlocksCoroutine(level));

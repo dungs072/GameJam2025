@@ -16,7 +16,9 @@ public class IntroScreen : BaseScreen
     public override IEnumerator OpenAsync()
     {
         gameObject.SetActive(true);
-        // yield return base.OpenAsync();
+        CanvasGroup.alpha = 0f;
+        Tween fadeTween = CanvasGroup.DOFade(1f, 0.5f);
+        fadeTween.Play();
         yield return null;
         PlayIntroAnim();
     }
@@ -25,7 +27,7 @@ public class IntroScreen : BaseScreen
         seq?.Kill();
         seq = DOTween.Sequence();
 
-        for (int i = 0; i < introSprites.Count; i++)
+        for (int i = 0; i < introSprites.Count - 1; i++)
         {
             int spriteIndex = i;
 
@@ -35,7 +37,6 @@ public class IntroScreen : BaseScreen
             RectTransform currRT = introImages[currImgIndex].rectTransform;
             RectTransform nextRT = introImages[nextImgIndex].rectTransform;
 
-            // Prepare next image
             seq.AppendCallback(() =>
             {
                 introImages[currImgIndex].sprite = introSprites[spriteIndex];
@@ -46,13 +47,13 @@ public class IntroScreen : BaseScreen
                 currRT.anchoredPosition = new Vector2(showPositionX, currRT.anchoredPosition.y);
                 nextRT.anchoredPosition = new Vector2(rightHidePositionX, nextRT.anchoredPosition.y);
             });
-
-            // Animate both at the same time
+            var duration = i == 0 ? 5f : 3f;
+            seq.AppendInterval(duration);
             seq.Append(currRT.DOAnchorPosX(leftHidePositionX, 1f));
             seq.Join(nextRT.DOAnchorPosX(showPositionX, 1f));
 
-            seq.AppendInterval(0.5f);
         }
+        seq.AppendInterval(3f);
 
         seq.OnComplete(() =>
         {

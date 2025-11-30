@@ -14,6 +14,17 @@ public class Inventory
     private Dictionary<string, int> items = new();
     private int maxSize = 100;
 
+    public void Clear()
+    {
+        foreach (var item in items)
+        {
+            OnInventoryChanged?.Invoke(item.Key, 0);
+        }
+        items.Clear();
+        var allItemIDs = GetAllItemIDs();
+
+    }
+
     public Inventory(int maxSize = 100)
     {
         this.maxSize = maxSize;

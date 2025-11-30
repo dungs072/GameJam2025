@@ -1,16 +1,24 @@
+using BaseEngine;
 using UnityEngine;
 
 public class GameScreen : BaseScreen
 {
     [SerializeField] private InventoryUI inventoryUI;
+    [SerializeField] private MagicButton playAgainButton;
 
     void Awake()
     {
         Inventory.OnInventoryChanged += UpdateInventoryUI;
+        playAgainButton.AddListener(OnPlayAgainButtonClicked);
     }
     void OnDestroy()
     {
         Inventory.OnInventoryChanged -= UpdateInventoryUI;
+        playAgainButton.RemoveListener(OnPlayAgainButtonClicked);
+    }
+    private void OnPlayAgainButtonClicked()
+    {
+        GameController.Instance.HandlePlayGameAgainWhenNotWin();
     }
     private void UpdateInventoryUI(string productId, int newAmount)
     {

@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour, ICharacter
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.down * 100f);
     }
+    public void Reset()
+    {
+        inventory.Clear();
+        playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
+    }
 
     public int GetCountItemInventory(string itemID)
     {

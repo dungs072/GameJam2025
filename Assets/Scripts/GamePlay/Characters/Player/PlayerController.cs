@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     [SerializeField] private PlayerSkin playerSkin;
     private InputHandler inputHandler;
     private Inventory inventory;
+    public Throw ThrowAction => throwAction;
     void Awake()
     {
         InitComponents();
@@ -55,7 +56,6 @@ public class PlayerController : MonoBehaviour, ICharacter
         {
             colorIds.Add(ColorEnumExtensions.ToID(parentColor));
         }
-        Debug.Log($"<color=#e468d9>colorIds: {colorIds.Count}</color>");
         inventory.RemoveUnMatchedLeftItems(colorIds);
         var availableColorIds = inventory.GetAllItemIDs();
         playerSkin.SwitchSkinColor(availableColorIds);

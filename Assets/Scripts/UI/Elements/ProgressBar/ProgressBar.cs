@@ -3,7 +3,10 @@ using UnityEngine;
 public class ProgressBar : MonoBehaviour
 {
     [SerializeField] private Transform fontBar;
-
+    void Awake()
+    {
+        SetProgress(0f);
+    }
 
     public void SetProgress(float currentValue, float maxValue)
     {

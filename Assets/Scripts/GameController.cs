@@ -20,6 +20,16 @@ public class GameController : MonoBehaviour
 
     public static GameController Instance { get; private set; }
 
+    public bool IsPlayerInBlockTileMap()
+    {
+        var leftThrowPoint = playerController.ThrowAction.GetLeftThrowPointPosition();
+        var rightThrowPoint = playerController.ThrowAction.GetRightThrowPointPosition();
+        var colliderComp = playerController.GetComponent<BoxCollider2D>();
+        return levelBuilder.IsBodyOverTile(colliderComp.bounds) ||
+                levelBuilder.IsInBlockTileMap(leftThrowPoint) ||
+                levelBuilder.IsInBlockTileMap(rightThrowPoint);
+    }
+
     private void Awake()
     {
         if (Instance == null)

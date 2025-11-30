@@ -18,6 +18,11 @@ public class Throw
 
     public void HandleThrow(ThrowType throwType)
     {
+        var gameController = GameController.Instance;
+        if (gameController.IsPlayerInBlockTileMap())
+        {
+            return;
+        }
         string itemID = throwType switch
         {
             ThrowType.THROW_ONE => "red",
@@ -34,5 +39,13 @@ public class Throw
 
         factory.GetProduct(itemID, newPosition);
         playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
+    }
+    public Vector2 GetLeftThrowPointPosition()
+    {
+        return leftThrowPoint.position;
+    }
+    public Vector2 GetRightThrowPointPosition()
+    {
+        return rightThrowPoint.position;
     }
 }

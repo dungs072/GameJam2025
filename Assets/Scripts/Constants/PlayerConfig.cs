@@ -16,6 +16,7 @@ public class PlayerConfig
 
         public const float DASH_DURATION = 0.2f;
         public const float DASH_DISTANCE = 7f;
+        public const float JUMP_DURATION = 0.4f;
     }
 
     public class SkinNames

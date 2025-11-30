@@ -27,6 +27,8 @@ public class Movement
 
     private bool isLookingRight = true;
 
+    private float currentJumpRemainTime = 0f;
+
     // For animation
     public bool IsGrounded => isGrounded;
     public bool IsJumpingUp => velocity.y > 0;
@@ -52,6 +54,7 @@ public class Movement
     public void Update()
     {
         Move(inputHandler.MoveValue);
+        UpdateJumpDuration();
         TryUpdateGravity();
         UpdateBlockMove();
         CheckBlockedHead();
@@ -114,6 +117,13 @@ public class Movement
                         PlayerConfig.MovementSettings.MOVE_SPEED;
         velocity = new Vector3(newVelocityX, velocity.y, 0);
     }
+
+    private void UpdateJumpDuration()
+    {
+        currentJumpRemainTime -= Time.deltaTime;
+        if (currentJumpRemainTime <= 0f) currentJumpRemainTime = 0f;
+    }
+
     private void TryUpdateGravity()
     {
         prePosition = transform.position;
@@ -121,9 +131,9 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f), Vector2.down, 1.01f, groundLayer);
-        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
-        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
+        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f), Vector2.down, 1.1f, groundLayer);
+        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.1f, groundLayer);
+        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.1f, groundLayer);
 
         var raycastHit = hit1.collider != null ? hit1 :
                          hit2.collider != null ? hit2 :
@@ -131,8 +141,13 @@ public class Movement
 
         if (raycastHit.collider != null)
         {
-            SnapToGround(raycastHit);
-            SetGroundedState(true);
+
+            if (currentJumpRemainTime <= 0f)
+            {
+                SnapToGround(raycastHit);
+                SetGroundedState(true);
+            }
+            
             if (velocity.y <= 0)
             {
                 velocity = new Vector3(velocity.x, 0, 0);
@@ -154,6 +169,7 @@ public class Movement
     private void Jump()
     {
         if (!isGrounded) return;
+        currentJumpRemainTime = PlayerConfig.MovementSettings.JUMP_DURATION;
         var newY = Mathf.Sqrt(2 * MathConfig.GRAVITY * PlayerConfig.MovementSettings.JUMP_HEIGHT);
         velocity = new Vector3(velocity.x, newY, 0);
         SetGroundedState(false);

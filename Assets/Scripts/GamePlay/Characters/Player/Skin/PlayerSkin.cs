@@ -9,6 +9,7 @@ public class PlayerSkin
     [SerializeField] private SkeletonAnimation skeletonAnimation;
 
     private Movement movement;
+    private float walkRemainTime = 0f;
 
     public void SetPlayerMovement(Movement movement)
     {
@@ -24,15 +25,23 @@ public class PlayerSkin
 
     public void Update()
     {
+        if (walkRemainTime > 0f)
+        {
+            walkRemainTime -= Time.deltaTime;
+            if (walkRemainTime < 0f) walkRemainTime = 0f;
+        }
+
         skeletonAnimation.skeleton.ScaleX = movement.IsLookingRight ? 1 : -1;
         if (movement.IsGrounded && movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.WALK)
         {
             var entry = skeletonAnimation.AnimationState.SetAnimation(0, PlayerConfig.AnimationNames.WALK, true);
             entry.TimeScale = 2.5f;
+            walkRemainTime = PlayerConfig.MovementSettings.WALK_AT_LEAST_DURATION;
         }
 
         if (movement.IsGrounded && !movement.IsWalking && CurrentAnimationName != PlayerConfig.AnimationNames.IDLE)
         {
+            if (walkRemainTime > 0f) return;
             skeletonAnimation.AnimationState.SetAnimation(0, PlayerConfig.AnimationNames.IDLE, true);
         }
 

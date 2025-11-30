@@ -7,6 +7,8 @@ public class BaseScreen : MonoBehaviour
     [SerializeField] private CanvasGroup canvasGroup;
     private float fadeDuration = 0.5f;
 
+    public CanvasGroup CanvasGroup => canvasGroup;
+
     public virtual IEnumerator OpenAsync()
     {
         gameObject.SetActive(true);

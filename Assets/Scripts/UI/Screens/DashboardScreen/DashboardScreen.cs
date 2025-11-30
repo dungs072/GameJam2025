@@ -19,7 +19,6 @@ public class DashboardScreen : BaseScreen
 
     private void OnStartButtonClicked()
     {
-        AudioManager.Instance.PlayStartButtonSfx();
         GameController.Instance.DisableInput();
         StartCoroutine(UIManager.Instance.CloseScreenAsync<DashboardScreen>());
         StartCoroutine(UIManager.Instance.OpenScreenAsync<IntroScreen>());

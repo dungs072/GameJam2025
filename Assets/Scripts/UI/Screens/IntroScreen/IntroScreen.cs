@@ -34,26 +34,47 @@ public class IntroScreen : BaseScreen
             int currImgIndex = i % introImages.Count;
             int nextImgIndex = (i + 1) % introImages.Count;
 
-            RectTransform currRT = introImages[currImgIndex].rectTransform;
-            RectTransform nextRT = introImages[nextImgIndex].rectTransform;
+            var currImg = introImages[currImgIndex];
+            var nextImg = introImages[nextImgIndex];
+
+            RectTransform currRT = currImg.rectTransform;
+            RectTransform nextRT = nextImg.rectTransform;
+
+            CanvasGroup currCG = currImg.GetComponent<CanvasGroup>();
+            CanvasGroup nextCG = nextImg.GetComponent<CanvasGroup>();
 
             seq.AppendCallback(() =>
             {
-                introImages[currImgIndex].sprite = introSprites[spriteIndex];
-                introImages[nextImgIndex].sprite = introSprites[
-                    (spriteIndex + 1) % introSprites.Count
-                ];
+                currImg.sprite = introSprites[spriteIndex];
+                nextImg.sprite = introSprites[(spriteIndex + 1) % introSprites.Count];
 
+                // Reset states
                 currRT.anchoredPosition = new Vector2(showPositionX, currRT.anchoredPosition.y);
-                nextRT.anchoredPosition = new Vector2(rightHidePositionX, nextRT.anchoredPosition.y);
-            });
-            var duration = i == 0 ? 5f : 3f;
-            seq.AppendInterval(duration);
-            seq.Append(currRT.DOAnchorPosX(leftHidePositionX, 1f));
-            seq.Join(nextRT.DOAnchorPosX(showPositionX, 1f));
+                currRT.localScale = Vector3.one;
+                currCG.alpha = 1f;
 
+                nextRT.anchoredPosition = new Vector2(rightHidePositionX, nextRT.anchoredPosition.y);
+                nextRT.localScale = Vector3.one * 0.85f;
+                nextCG.alpha = 0f;
+            });
+
+            float stayDuration = i == 0 ? 5f : 2.5f;
+            seq.AppendInterval(stayDuration);
+
+            // OUT animation (current)
+            seq.Append(currRT.DOAnchorPosX(leftHidePositionX, 0.8f)
+                .SetEase(Ease.InCubic));
+            seq.Join(currRT.DOScale(0.85f, 0.8f));
+            seq.Join(currCG.DOFade(0f, 0.6f));
+
+            // IN animation (next)
+            seq.Join(nextRT.DOAnchorPosX(showPositionX, 0.9f)
+                .SetEase(Ease.OutBack));
+            seq.Join(nextRT.DOScale(1f, 0.9f));
+            seq.Join(nextCG.DOFade(1f, 0.6f));
         }
-        seq.AppendInterval(3f);
+
+        seq.AppendInterval(2f);
 
         seq.OnComplete(() =>
         {

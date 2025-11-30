@@ -24,6 +24,28 @@ public class LevelBuilder : MonoBehaviour
     {
         Inventory.OnInventoryItemsChanged -= HandleCollectibleColor;
     }
+    public bool IsBodyOverTile(Bounds bounds)
+    {
+        Bounds b = bounds;
+        Vector3Int min = blockTileMap.WorldToCell(b.min);
+        Vector3Int max = blockTileMap.WorldToCell(b.max);
+
+        for (int x = min.x; x <= max.x; x++)
+        {
+            for (int y = min.y; y <= max.y; y++)
+            {
+                if (blockTileMap.HasTile(new Vector3Int(x, y, 0)))
+                    return true;
+            }
+        }
+        return false;
+    }
+    public bool IsInBlockTileMap(Vector3 worldPosition)
+    {
+        Vector3Int cellPosition = blockTileMap.WorldToCell(worldPosition);
+        var tile = blockTileMap.GetTile(cellPosition);
+        return tile != null;
+    }
     public IEnumerator BuildMapLevelAgain()
     {
         foreach (var kvp in blockPositions)
@@ -202,4 +224,6 @@ public class LevelBuilder : MonoBehaviour
         var newPos = platformTileMap.GetCellCenterWorld(cellPos);
         var goal = factory.GetProduct("goal", newPos);
     }
+
+
 }

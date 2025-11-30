@@ -172,6 +172,7 @@ MonoBehaviour:
       serializedVersion: 2
       m_Bits: 320
     transform: {fileID: 8910086358057996089}
+    playerCollider: {fileID: 3379032253040664325}
   throwAction:
     leftThrowPoint: {fileID: 612463557954623135}
     rightThrowPoint: {fileID: 763788588083336820}

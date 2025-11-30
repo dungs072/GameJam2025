@@ -15,8 +15,18 @@ MonoBehaviour:
   m_GroupName: Default Local Group
   m_GUID: 315b40a8345ff69488a3d8b2d127799a
   m_SerializeEntries:
-  - m_GUID: 10f7c7c2323a44d47a85912da9f73828
-    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/CyanEntity.prefab
+  - m_GUID: 0ea9721d8d86959458bb6e6ddff1dfb0
+    m_Address: Assets/Data/TileData/Blocks/White 2.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 2f43ee596ec402b4c8fbf41177e88ffc
+    m_Address: Assets/Data/TileData/Block2 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 4e25b50f7adc6254a81177503fd05893
+    m_Address: Assets/Data/TileData/Blocks/White.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
@@ -25,18 +35,23 @@ MonoBehaviour:
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d7782634952b6e04984949c392e6f6f7
-    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/WhiteEntity.prefab
+  - m_GUID: 9c1dbaf75f72ed445ac1647557358ff1
+    m_Address: Assets/Prefabs/GamePlay/GameObjects/Goal/Goal.prefab
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: d80b97760f2f12c4abdbce5bbbd37157
-    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/YellowEntity.prefab
+  - m_GUID: a785c5bc1ccdea94691604603d812038
+    m_Address: Assets/Data/TileData/Block2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0
-  - m_GUID: f4163d5a53277a04dba006f45187b722
-    m_Address: Assets/Prefabs/GamePlay/GameObjects/ColorEntities/PurpleEntity.prefab
+  - m_GUID: b65f4aed695ba1f498187f3bf26bc04e
+    m_Address: Assets/Data/TileData/Blocks/White 1.asset
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: ebbf91e29a71a6a47a849e2a2053a683
+    m_Address: Assets/Data/TileData/Block2 2.asset
     m_ReadOnly: 0
     m_SerializedLabels: []
     FlaggedDuringContentUpdateRestriction: 0

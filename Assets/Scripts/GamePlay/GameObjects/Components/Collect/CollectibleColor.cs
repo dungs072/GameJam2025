@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CollectibleColor : MonoBehaviour, IPropComponent
@@ -19,10 +21,10 @@ public class CollectibleColor : MonoBehaviour, IPropComponent
         if (character.IsFullInventory()) return false;
         var colorRuler = GameController.Instance.ColorRuler;
         var parentColors = colorRuler.GetParentColors(productData.Id);
-        Debug.Log($"<color=#c780de>parentColors: {parentColors.Length}</color>");
         if (parentColors.Length == 0)
         {
             character.AddItemToInventory(productData.Id, ref currentAmount);
+
         }
         else
         {
@@ -33,7 +35,6 @@ public class CollectibleColor : MonoBehaviour, IPropComponent
                 character.AddItemToInventory(id, ref newAmount);
             }
         }
-        //! take all collected items
         gameObject.SetActive(false);
         return true;
     }

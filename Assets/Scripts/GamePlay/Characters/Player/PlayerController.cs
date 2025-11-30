@@ -5,41 +5,35 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour, ICharacter
 {
     [SerializeField] private Movement movement;
+    [SerializeField] private Throw throwAction;
     [SerializeField] private PlayerSkin playerSkin;
     private InputHandler inputHandler;
     private Inventory inventory;
     void Awake()
     {
         InitComponents();
-        inventory.OnItemRemoved += HandleItemRemoved;
+        inputHandler.OnThrow += throwAction.HandleThrow;
     }
     private void InitComponents()
     {
-        inputHandler = new InputHandler();
+        inputHandler = GetComponent<InputHandler>();
         inventory = new Inventory();
     }
     void Start()
     {
         movement.Init(inputHandler);
+        throwAction.Init(inventory, playerSkin, movement);
         playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
+        playerSkin.SetPlayerMovement(movement);
     }
     void OnDestroy()
     {
-        inventory.OnItemRemoved -= HandleItemRemoved;
-    }
-    private void HandleItemRemoved(string itemID, int amount)
-    {
-        for (int i = 0; i < amount; i++)
-        {
-            var factory = GameController.Instance.Factory;
-            var item = factory.GetProduct(itemID);
-            item.transform.position = transform.position + Vector3.up * 5f;
-        }
-
+        inputHandler.OnThrow -= throwAction.HandleThrow;
     }
     void Update()
     {
         movement.Update();
+        playerSkin.Update();
     }
     void OnDrawGizmos()
     {
@@ -72,8 +66,8 @@ public class PlayerController : MonoBehaviour, ICharacter
         if (collision.TryGetComponent<IPropComponent>(out var propComponent))
         {
             var result = propComponent.HandleInteractWithCharacter(this);
+
             if (result) return;
-            Debug.Log($"<color=#9a66e4>result: {result}</color>");
             HandleBlockPlayer(collision);
         }
     }
@@ -99,5 +93,10 @@ public class PlayerController : MonoBehaviour, ICharacter
         inventory.AddItem(itemID, ref amount);
         var availableColorIds = inventory.GetAllItemIDs();
         playerSkin.SwitchSkinColor(availableColorIds);
+    }
+
+    public List<string> GetAllItemIDs()
+    {
+        return inventory.GetAllItemIDs();
     }
 }

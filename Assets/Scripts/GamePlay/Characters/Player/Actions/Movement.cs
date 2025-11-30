@@ -1,5 +1,4 @@
 using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public enum BlockState
@@ -14,6 +13,7 @@ public class Movement
 {
     [SerializeField] private LayerMask groundLayer;
     [SerializeField] private Transform transform;
+    [SerializeField] private Collider2D playerCollider;
 
     private InputHandler inputHandler;
     private bool isGrounded = true;
@@ -23,8 +23,18 @@ public class Movement
     private float dashTimer = 0f;
     private Vector2 dashDir;
     private BlockState blockState = BlockState.None;
+    private bool isBlockedHead = false;
+
+    private bool isLookingRight = true;
+
+    // For animation
+    public bool IsGrounded => isGrounded;
+    public bool IsJumpingUp => velocity.y > 0;
+    public bool IsLookingRight => isLookingRight;
+    public bool IsWalking => velocity.x != 0;
 
     
+
 
     //! use for optimization gravity check
     private Vector3 prePosition = Vector3.zero;
@@ -43,6 +53,9 @@ public class Movement
     {
         Move(inputHandler.MoveValue);
         TryUpdateGravity();
+        UpdateBlockMove();
+        CheckBlockedHead();
+
         if (inputHandler.IsJumping)
         {
             Jump();
@@ -59,6 +72,40 @@ public class Movement
 
         UpdateTransformBaseVelocity();
     }
+    public void UpdateBlockMove()
+    {
+        var isLeft = CheckWall(Vector2.left);
+        var isRight = CheckWall(Vector2.right);
+        SetBlockState(isLeft ? BlockState.Left : isRight ? BlockState.Right : BlockState.None);
+    }
+    private void CheckBlockedHead()
+    {
+        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f), Vector2.up, 1f, groundLayer);
+        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.up, 1f, groundLayer);
+        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.up * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.up, 1f, groundLayer);
+
+        isBlockedHead = hit1.collider != null || hit2.collider != null || hit3.collider != null;
+    }
+    bool CheckWall(Vector2 direction)
+    {
+        if (direction == Vector2.left && isLookingRight) return false;
+        if (direction == Vector2.right && !isLookingRight) return false;
+        if (direction == Vector2.left)
+        {
+            var hit1 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.up + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            var hit3 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.down + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.left + Vector3.right * 1f, direction, 1f, groundLayer);
+            return hit1.collider != null || hit2.collider != null || hit3.collider != null;
+        } else if (direction == Vector2.right)
+        {
+            var hit1 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.up + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            var hit2 = Physics2D.Raycast(playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            var hit3 = Physics2D.Raycast((playerCollider.bounds.extents.y - 1f) * Vector3.down + playerCollider.bounds.center + playerCollider.bounds.extents.x * Vector3.right + Vector3.left * 1f, direction, 1f, groundLayer);
+            return hit1.collider != null || hit2.collider != null || hit3.collider != null;
+        }
+
+        return false;
+    }
     private void Move(Vector2 moveInput)
     {
         if (isDashing) return;
@@ -74,8 +121,17 @@ public class Movement
     }
     private void UpdateGravity()
     {
-        if (Physics2D.Raycast(transform.position, Vector2.down, 1.5f, groundLayer))
+        var hit1 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f), Vector2.down, 1.01f, groundLayer);
+        var hit2 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.left * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
+        var hit3 = Physics2D.Raycast(playerCollider.bounds.center + Vector3.down * (playerCollider.bounds.extents.y - 1f) + Vector3.right * (playerCollider.bounds.extents.x - 1f), Vector2.down, 1.01f, groundLayer);
+
+        var raycastHit = hit1.collider != null ? hit1 :
+                         hit2.collider != null ? hit2 :
+                         hit3;
+
+        if (raycastHit.collider != null)
         {
+            SnapToGround(raycastHit);
             SetGroundedState(true);
             if (velocity.y <= 0)
             {
@@ -88,6 +144,10 @@ public class Movement
             velocity += new Vector3(0, -MathConfig.GRAVITY * Time.deltaTime, 0);
             SetGroundedState(false);
         }
+    }
+    private void SnapToGround(RaycastHit2D hit)
+    {
+        transform.position = new Vector3(transform.position.x, hit.point.y + playerCollider.bounds.extents.y - playerCollider.offset.y * transform.localScale.y, transform.position.z);
     }
 
 
@@ -125,10 +185,24 @@ public class Movement
             velocity.x = 0;
         }
 
+        if (isBlockedHead && velocity.y > 0)
+        {
+            velocity.y = 0;
+        }
+
+        if (velocity.magnitude > PlayerConfig.MovementSettings.MAX_VELOCITY)
+        {
+            velocity = velocity.normalized * PlayerConfig.MovementSettings.MAX_VELOCITY;
+        }
+
         if (isDashing)
         {
             dashTimer += Time.deltaTime;
             newPosition = transform.position + velocity * Time.deltaTime;
+
+            if (velocity.x > 0) isLookingRight = true;
+            else if (velocity.x < 0) isLookingRight = false;
+
             velocity.x = Mathf.Lerp(velocity.x, 0, Time.deltaTime /
                         PlayerConfig.MovementSettings.DASH_DURATION);
             if (dashTimer >= PlayerConfig.MovementSettings.DASH_DURATION)
@@ -140,6 +214,10 @@ public class Movement
         else
         {
             newPosition += velocity * Time.deltaTime;
+
+            if (velocity.x > 0) isLookingRight = true;
+            else if (velocity.x < 0) isLookingRight = false;
+
             velocity.x = Mathf.Lerp(velocity.x, 0, PlayerConfig.MovementSettings.FRICTION * Time.deltaTime);
             if (Mathf.Abs(velocity.x) < Mathf.Epsilon)
             {

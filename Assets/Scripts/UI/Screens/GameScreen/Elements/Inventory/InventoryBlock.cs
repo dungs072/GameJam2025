@@ -1,33 +1,51 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 public class InventoryBlock : MonoBehaviour
 {
     [SerializeField] private Image iconImage;
-    [SerializeField] private TMP_Text amountText;
-    private string productId;
+    [SerializeField] private Image iconDisabledImage;
+    [SerializeField] private string productId;
+
+    [SerializeField] private ProgressBar progressBar;
 
     void Start()
     {
-        SetData("", null, 0);
+        SetData(0);
+        HideProgressBar();
     }
 
-    public void SetData(string id, Sprite icon, int amount)
+    public void SetData(int amount)
     {
-        productId = id;
-        iconImage.sprite = amount == 0 ? null : icon;
-        string text = amount == 0 ? "" : "X" + amount.ToString();
-        amountText.text = text;
-        this.iconImage.enabled = iconImage.sprite != null;
-    }
-    public bool IsEmpty()
-    {
-        return iconImage.sprite == null;
+        iconDisabledImage.enabled = amount == 0;
+        iconImage.enabled = amount > 0;
     }
     public bool HasProductId(string id)
     {
         return productId == id;
     }
 
+    public void SetProgress(float currentValue, float maxValue)
+    {
+        if (maxValue == 0)
+        {
+            HideProgressBar();
+            return;
+        }
+        if (!iconImage.enabled) return;
+        ShowProgressBar();
+        progressBar.SetProgress(currentValue, maxValue);
+        if (currentValue >= maxValue)
+        {
+            HideProgressBar();
+        }
+    }
 
+    private void HideProgressBar()
+    {
+        progressBar.gameObject.SetActive(false);
+    }
+    private void ShowProgressBar()
+    {
+        progressBar.gameObject.SetActive(true);
+    }
 }

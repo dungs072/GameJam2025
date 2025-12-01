@@ -104,7 +104,7 @@ public class LevelBuilder : MonoBehaviour
                 if (isPassable)
                 {
                     colliderType = Tile.ColliderType.None;
-                    alpha = 0.25f;
+                    alpha = 0.75f;
                 }
                 blockTileMap.SetTileFlags(pos, TileFlags.None);
                 blockTileMap.SetColliderType(pos, colliderType);

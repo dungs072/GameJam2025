@@ -39,6 +39,7 @@ public class Throw
 
         factory.GetProduct(itemID, newPosition);
         playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
+        AudioManager.Instance.PlayThrowItemSfx();
     }
     public Vector2 GetLeftThrowPointPosition()
     {

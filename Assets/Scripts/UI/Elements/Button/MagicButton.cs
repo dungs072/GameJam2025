@@ -131,6 +131,8 @@ namespace BaseEngine
             {
                 canClick = false;
             }
+
+            AudioManager.Instance.PlayStartButtonSfx();
             if (pointerDownAnim != null)
             {
                 yield return pointerDownAnim;

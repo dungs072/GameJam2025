@@ -11,6 +11,15 @@ public class CollectibleColor : MonoBehaviour, IPropComponent
     {
         currentAmount = amount;
     }
+
+    void Update()
+    {
+        if (PlayerController.Instance == null) return;
+        if (Physics2D.Raycast(transform.position, Vector2.down, 0.1f, LayerMask.GetMask("Ground")))
+        {
+            transform.position += 10f * Time.deltaTime * (PlayerController.Instance.transform.position - transform.position).normalized;
+        }
+    }
     void Awake()
     {
         productData = GetComponent<Prop>().productData;

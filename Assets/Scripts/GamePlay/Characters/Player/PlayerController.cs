@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour, ICharacter
 {
+    public static PlayerController Instance;
     [SerializeField] private Movement movement;
     [SerializeField] private Throw throwAction;
     [SerializeField] private PlayerSkin playerSkin;
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour, ICharacter
         InitComponents();
         inputHandler.OnThrow += throwAction.HandleThrow;
         inputHandler.OnRetry += Retry;
+        Instance = this;
     }
     void Retry()
     {

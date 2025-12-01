@@ -80,6 +80,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Retry"",
+                    ""type"": ""Button"",
+                    ""id"": ""8d8453d6-3e53-463d-8328-4fb5f156ac18"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -206,6 +215,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
+                    ""id"": ""8a12c9c1-7b60-45e7-9c03-dce221f404fe"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""93da52d8-e150-45e6-94ae-b24ed5ba3c56"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -247,6 +267,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Throw3"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""02b9c393-9fe7-46b3-b3bc-f923776c3d35"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Retry"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -278,6 +309,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_Throw1 = m_Player.FindAction("Throw1", throwIfNotFound: true);
         m_Player_Throw2 = m_Player.FindAction("Throw2", throwIfNotFound: true);
         m_Player_Throw3 = m_Player.FindAction("Throw3", throwIfNotFound: true);
+        m_Player_Retry = m_Player.FindAction("Retry", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -350,6 +382,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Throw1;
     private readonly InputAction m_Player_Throw2;
     private readonly InputAction m_Player_Throw3;
+    private readonly InputAction m_Player_Retry;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -360,6 +393,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @Throw1 => m_Wrapper.m_Player_Throw1;
         public InputAction @Throw2 => m_Wrapper.m_Player_Throw2;
         public InputAction @Throw3 => m_Wrapper.m_Player_Throw3;
+        public InputAction @Retry => m_Wrapper.m_Player_Retry;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -387,6 +421,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Throw3.started += instance.OnThrow3;
             @Throw3.performed += instance.OnThrow3;
             @Throw3.canceled += instance.OnThrow3;
+            @Retry.started += instance.OnRetry;
+            @Retry.performed += instance.OnRetry;
+            @Retry.canceled += instance.OnRetry;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -409,6 +446,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @Throw3.started -= instance.OnThrow3;
             @Throw3.performed -= instance.OnThrow3;
             @Throw3.canceled -= instance.OnThrow3;
+            @Retry.started -= instance.OnRetry;
+            @Retry.performed -= instance.OnRetry;
+            @Retry.canceled -= instance.OnRetry;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -443,5 +483,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnThrow1(InputAction.CallbackContext context);
         void OnThrow2(InputAction.CallbackContext context);
         void OnThrow3(InputAction.CallbackContext context);
+        void OnRetry(InputAction.CallbackContext context);
     }
 }

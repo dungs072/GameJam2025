@@ -14,7 +14,14 @@ public class PlayerController : MonoBehaviour, ICharacter
     {
         InitComponents();
         inputHandler.OnThrow += throwAction.HandleThrow;
+        inputHandler.OnRetry += Retry;
     }
+    void Retry()
+    {
+        AudioManager.Instance.PlayStartButtonSfx();
+        GameController.Instance.HandlePlayGameAgainWhenNotWin();
+    }
+
     private void InitComponents()
     {
         inputHandler = GetComponent<InputHandler>();
@@ -30,6 +37,7 @@ public class PlayerController : MonoBehaviour, ICharacter
     void OnDestroy()
     {
         inputHandler.OnThrow -= throwAction.HandleThrow;
+        inputHandler.OnRetry -= Retry;
     }
     void Update()
     {

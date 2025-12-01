@@ -58,6 +58,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Retry",
+                    "type": "Button",
+                    "id": "8d8453d6-3e53-463d-8328-4fb5f156ac18",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -184,6 +193,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8a12c9c1-7b60-45e7-9c03-dce221f404fe",
+                    "path": "<Keyboard>/upArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Jump",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "93da52d8-e150-45e6-94ae-b24ed5ba3c56",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
@@ -223,6 +243,17 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Throw3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "02b9c393-9fe7-46b3-b3bc-f923776c3d35",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Retry",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

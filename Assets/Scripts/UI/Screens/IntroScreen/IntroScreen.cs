@@ -8,8 +8,8 @@ public class IntroScreen : BaseScreen
     [SerializeField] private List<Sprite> introSprites;
 
     [SerializeField] private List<Image> introImages;
-    private int leftHidePositionX = -2000;
-    private int rightHidePositionX = 2000;
+    private int leftHidePositionX = 0;
+    private int rightHidePositionX = 0;
     private int showPositionX = 0;
     private Sequence seq;
 
@@ -51,11 +51,11 @@ public class IntroScreen : BaseScreen
 
                 // Reset states
                 currRT.anchoredPosition = new Vector2(showPositionX, currRT.anchoredPosition.y);
-                currRT.localScale = Vector3.one;
+                //currRT.localScale = Vector3.one;
                 currCG.alpha = 1f;
 
                 nextRT.anchoredPosition = new Vector2(rightHidePositionX, nextRT.anchoredPosition.y);
-                nextRT.localScale = Vector3.one * 0.85f;
+                //nextRT.localScale = Vector3.one * 0.85f;
                 nextCG.alpha = 0f;
             });
 
@@ -65,13 +65,13 @@ public class IntroScreen : BaseScreen
             // OUT animation (current)
             seq.Append(currRT.DOAnchorPosX(leftHidePositionX, 0.8f)
                 .SetEase(Ease.InCubic));
-            seq.Join(currRT.DOScale(0.85f, 0.8f));
+            //seq.Join(currRT.DOScale(0.85f, 0.8f));
             seq.Join(currCG.DOFade(0f, 0.6f));
 
             // IN animation (next)
-            seq.Join(nextRT.DOAnchorPosX(showPositionX, 0.9f)
+            seq.Append(nextRT.DOAnchorPosX(showPositionX, 0.9f)
                 .SetEase(Ease.OutBack));
-            seq.Join(nextRT.DOScale(1f, 0.9f));
+            //seq.Join(nextRT.DOScale(1f, 0.9f));
             seq.Join(nextCG.DOFade(1f, 0.6f));
         }
 

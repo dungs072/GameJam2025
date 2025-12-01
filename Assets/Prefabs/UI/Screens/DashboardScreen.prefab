@@ -156,7 +156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5595557808486467861
 RectTransform:
   m_ObjectHideFlags: 0
@@ -204,7 +204,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 4797912749575656285}
   startButton: {fileID: 8047006518795482374}
-  mainMenuThemeAudioSource: {fileID: 7350859874810767581}
 --- !u!82 &7350859874810767581
 AudioSource:
   m_ObjectHideFlags: 0

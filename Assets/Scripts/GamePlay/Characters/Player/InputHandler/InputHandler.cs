@@ -12,6 +12,7 @@ public class InputHandler : MonoBehaviour
 {
     public static event Action<float, float, ThrowType> OnHoldingThrow;
     public event Action<ThrowType> OnThrow;
+    public event Action OnRetry;
     private PlayerControls _actions;
 
     public Vector2 MoveValue { get; private set; }
@@ -62,6 +63,9 @@ public class InputHandler : MonoBehaviour
 
         _actions.Player.Throw3.started += _ => OnStartedThrow(ThrowType.THROW_THREE);
         _actions.Player.Throw3.canceled += _ => OnFireCanceled(ThrowType.THROW_THREE);
+
+        // ===== Reset =====
+        _actions.Player.Retry.performed += _ => OnRetry?.Invoke();
     }
     private void OnDestroy()
     {

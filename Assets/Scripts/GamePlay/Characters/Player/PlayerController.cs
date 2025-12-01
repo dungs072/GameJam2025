@@ -41,6 +41,11 @@ public class PlayerController : MonoBehaviour, ICharacter
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.position, Vector3.down * 100f);
     }
+    public void Reset()
+    {
+        inventory.Clear();
+        playerSkin.SwitchSkinColor(inventory.GetAllItemIDs());
+    }
 
     public int GetCountItemInventory(string itemID)
     {
@@ -90,6 +95,7 @@ public class PlayerController : MonoBehaviour, ICharacter
 
     public void AddItemToInventory(string itemID, ref int amount)
     {
+        AudioManager.Instance.PlayPickUpItemSfx();
         inventory.AddItem(itemID, ref amount);
         var availableColorIds = inventory.GetAllItemIDs();
         playerSkin.SwitchSkinColor(availableColorIds);

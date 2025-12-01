@@ -101,6 +101,12 @@ public class GameController : MonoBehaviour
         StartCoroutine(UIManager.Instance.CloseScreenAsync<WinScreen>());
         StartCoroutine(UIManager.Instance.OpenScreenAsync<GameScreen>());
     }
+    public void HandlePlayGameAgainWhenNotWin()
+    {
+        Factory.ClearAllProducts();
+        StartCoroutine(levelBuilder.BuildMapLevelAgain());
+        playerController.Reset();
+    }
 
     public void EnableInput()
     {
